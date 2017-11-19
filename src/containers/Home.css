@@ -1,0 +1,114 @@
+.landing-containr {
+  padding: 15px;
+}
+.location-block, .dropdown-block {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+.location-block.focus, .dropdown-block.focus {
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-block .button {
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: 1px solid #b1b1b1;
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  font-size: 1em;
+  margin-right: 4px;
+  color: #4c4c4c;
+  padding: 0 .825em;
+  z-index: 0;
+  border-radius: 0px;
+  border: 0px;
+}
+.dropdown-block .button span {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  padding-bottom: 5px;
+  font-size: 1.5em;
+  background: none;
+  color: #a9a9a9;
+  width: 90%;
+  height: 30px;
+  border: none;
+  appearance: none;
+  outline: none;
+}
+.dropdown-block .dropdown-container {
+  padding-bottom: 0;
+  width: 100%;
+  border-radius: 0;
+  border-top: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  font-size: 14px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.17255) 0 6px 12px 0;
+  visibility: hidden;
+}
+.dropdown-block .dropdown-container.is-open {
+  visibility: visible;
+}
+.dropdown-block .dropdown-container .dropdown {
+  display: inline-block;
+  margin: 0;
+  border-top: 1px solid #cccccc;
+  width: 100%;
+}
+.dropdown-block .dropdown-container .dropdown {
+  width: 100%;
+  margin: 0px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.location-label, .dropdown-label {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  color: #5a6674;
+  z-index: 999;
+}
+
+.location-input {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  padding-bottom: 5px;
+  font-size: 1.5em;
+  background: none;
+  color: #5a6674;
+  width: 90%;
+  height: 30px;
+  border: none;
+  appearance: none;
+  outline: none;
+}
+.location-input::-webkit-search-cancel-button {
+  appearance: none;
+}
+.location-input:focus {
+  border-bottom: 1px solid #009688;
+}
+
+.landing-container .location-box {
+  height: 80px;
+  padding: 10px 0 10px 10px;
+}
+.landing-container .location-box .search-button {
+  width: 100%;
+  height: 80px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 5px;
+}
