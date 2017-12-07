@@ -3,10 +3,9 @@ import config from "../config";
 export async function invokeApig({
   path,
   method = "GET",
-  headers = {"x-api-key": config.apiGateway.API_KEY},
-  body
+  headers = {},
+  body = {}
 }) {
-    // Get endpoint
     const endPoint = config.apiGateway.URL
     const version = config.apiGateway.VERSION
 

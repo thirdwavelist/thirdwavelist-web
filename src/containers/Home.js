@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardText, CardImg, Col } from "reactstrap";
-import { Box, Content, Container } from 'reactbulma'
+import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
 import "./Home.css";
+import config from "../config";
 
 export default class Home extends Component {
   constructor(props) {  
@@ -39,7 +40,10 @@ export default class Home extends Component {
   }
     
   cafes() {
-    return invokeApig({ path: "/cafe", method: "GET" });
+    return invokeApig({ path: "/cafe", 
+      method: "GET", 
+      headers: { "x-api-key": config.apiGateway.API_KEY } 
+    });
   }
   
   renderCafeList(cafes) {
