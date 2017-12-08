@@ -5,7 +5,7 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import "react-select/dist/react-select.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "react-bulma-components/dist/react-bulma-components.min.css"
+import "react-bulma-components/dist/react-bulma-components.min.css";
 import "./index.css";
 
 ReactDOM.render(

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardTitle, CardText, CardImg, Col } from "reactstrap";
+import { Col, Button, Form, FormGroup, Input } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
@@ -48,13 +48,10 @@ export default class Home extends Component {
   
   renderCafeList(cafes) {
     return cafes.map((cafe) =>
-      <Col sm="4" key={cafe.id}>
-        <div>
-          <Card body>
-            <CardImg src={cafe.thumbnail}/>
-            <CardTitle>{cafe.name}</CardTitle>
-              <CardText>{cafe.address}</CardText>
-          </Card>
+      <Col sm="3" key={cafe.uid} className="resultsCard">
+        <div className="imageCard">
+          <img src={cafe.thumbnail} alt="Thumbnail" />
+          <span className="imageTitle">{cafe.name}</span>
         </div>
       </Col>
     );
@@ -75,12 +72,14 @@ export default class Home extends Component {
   
   toggleBeanDropdown() {
     this.setState({
-      beanDropdownOpen: !this.state.beanDropdownOpen
+      beanDropdownOpen: !this.state.beanDropdownOpen,
+      methodDropdownOpen: false
     });
   }
   toggleMethodDropdown() {
     this.setState({
-      methodDropdownOpen: !this.state.methodDropdownOpen
+      methodDropdownOpen: !this.state.methodDropdownOpen,
+      beanDropdownOpen: false
     });
   }
   
@@ -93,26 +92,30 @@ export default class Home extends Component {
 
     if (_beanFilter != null && _beanFilter.value.length > 0) {
       _cafes = _cafes.filter(function(cafe) {
-        if (_beanFilter.value === "bean_roast_light") {
-          return cafe.bean_light; 
+        if (_beanFilter.value === "all") {
+          return true || false
+        } else if (_beanFilter.value === "bean_roast_light") {
+          return cafe.bean_roast_light; 
         } else if (_beanFilter.value === "bean_roast_dark") {
-          return cafe.bean_dark;
+          return cafe.bean_roast_dark;
         }
       });
     }
     
     if (_methodFilter != null && _methodFilter.value.length > 0) {
       _cafes = _cafes.filter(function(cafe) {
-        if (_methodFilter.value === "brew_method_espresso") {
-          return cafe.method_espresso; 
+        if (_methodFilter.value === "all") {
+          return true || false
+        } else if (_methodFilter.value === "brew_method_espresso") {
+          return cafe.brew_method_espresso; 
         } else if (_methodFilter.value === "brew_method_aeropress") {
-          return cafe.method_aeropress;
+          return cafe.brew_method_aeropress;
         } else if (_methodFilter.value === "brew_method_pour_over") {
-          return cafe.method_pour_over;
+          return cafe.brew_method_pour_over;
         } else if (_methodFilter.value === "brew_method_fullimmersion") {
-          return cafe.method_full_immersion;
+          return cafe.brew_method_fullimmersion;
         } else if (_methodFilter.value === "brew_method_syphon") {
-          return cafe.method_syphon;
+          return cafe.brew_method_syphon;
         } 
       });
     }
@@ -145,8 +148,8 @@ export default class Home extends Component {
                 </a>
                 <div className={"dropdown-container " + (this.state.beanDropdownOpen ? "is-open" : null)}>
                   <div className='dropdown'>
+                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setBeanType}>All</button>
                     <button className='button label' data-arg1="bean_light" data-arg2="Light" onClick={this.setBeanType}>Light</button>
-                    <br />
                     <button className='button label' data-arg1="bean_dark"  data-arg2="Dark" onClick={this.setBeanType}>Dark</button>
                   </div>
                 </div>
@@ -162,14 +165,11 @@ export default class Home extends Component {
                 </a>
                 <div className={"dropdown-container " + (this.state.methodDropdownOpen ? "is-open" : null)}>
                   <div className='dropdown'>
+                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setMethodType}>All</button>
                     <button className='button label' data-arg1="method_espresso" data-arg2="Espresso" onClick={this.setMethodType}>Espresso</button>
-                    <br />
                     <button className='button label' data-arg1="method_aeropress"  data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
-                    <br />
                     <button className='button label' data-arg1="method_pour_over" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
-                    <br />
                     <button className='button label' data-arg1="method_syphon"  data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
-                    <br />
                     <button className='button label' data-arg1="method_full_immersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
                   </div>
                 </div>
@@ -177,9 +177,28 @@ export default class Home extends Component {
             </Columns.Column>
           </Columns>
         </Box>
-        <Columns breakpoint="mobile">
-          {!this.state.isLoading && this.renderCafeList(_cafes)}
-        </Columns>
+        
+        <Box className="resultsContainer">
+          <h3 className="header">Coffee places filtered for you</h3>
+          <Columns breakpoint="mobile">
+              {!this.state.isLoading && this.renderCafeList(_cafes)}
+          </Columns>
+        </Box>
+
+        <div className="feedback">
+          <span>Stay up-to-date with Third Wave List</span>
+          
+          <Form>
+            <FormGroup>
+              <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              <button type="submit" class="btn btn-lg btn-primary">Subscribe</button>
+            </FormGroup>
+          </Form>
+          <br /><br /><br />
+          
+          <p>You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
+        </div>
       </Container>
     );
   }

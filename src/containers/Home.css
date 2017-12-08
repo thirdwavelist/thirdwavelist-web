@@ -23,11 +23,13 @@
   font-size: 1em;
   margin-right: 4px;
   color: #4c4c4c;
-  padding: 0 .825em;
-  z-index: 0;
+  z-index: 10;
   border-radius: 0px;
   border: 0px;
 }
+.dropdown-block .dropdown-container .button:hover {
+  background-color: #f0f0f0
+}  
 .dropdown-block .button span {
   position: absolute;
   top: 40px;
@@ -50,7 +52,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 10;
+  z-index: 20;
   font-size: 14px;
   padding: 0;
   background-color: #fff;
@@ -59,6 +61,7 @@
 }
 .dropdown-block .dropdown-container.is-open {
   visibility: visible;
+  z-index: 999;  
 }
 .dropdown-block .dropdown-container .dropdown {
   display: inline-block;
@@ -78,7 +81,7 @@
   top: 15px;
   left: 10px;
   color: #5a6674;
-  z-index: 999;
+  z-index: 50;
 }
 
 .location-input {
@@ -111,4 +114,50 @@
   height: 80px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 5px;
+}
+
+.resultsContainer {
+  background-color: #e4e4e4;
+  justify-content: center;
+  width: 100%;
+  display: flex;  
+}
+
+h3.header {
+  font-family: 'Roboto', serif;    
+  font-size: 2em;  
+  text-align: center;  
+  padding-bottom: 20px
+}
+.resultsCard {
+  padding: 10px;
+  align-self: center;
+}
+.resultsCard div.imageCard {
+  position: relative;
+  width: 100%;  
+}
+.resultsCard span.imageTitle {
+  font-family: 'Roboto', serif;
+  font-style: bold;
+  font-weight: 600;
+  font-size: 2vw;
+  position: absolute; 
+  top: 40%; 
+  color: white;
+  left: 0; 
+  text-align: center;    
+  width: 100%; 
+}
+
+.feedback span {
+  font-family: 'Roboto', serif;    
+  font-size: 2vw;  
+  text-align: center;  
+}
+
+.feedback p {
+  font-family: 'Roboto', serif;    
+  font-size: 2vw;  
+  text-align: center; 
 }
