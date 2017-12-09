@@ -1,5 +1,11 @@
-div.paragraph {
-   font-family: 'Roboto', serif;
-   font-size: 2vw; 
-   padding: 0 100px;
+div.manifesto {
+    font-family: 'Spectral SC', serif;
+    font-weight: 10;
+    font-size: 2vmax; 
+    padding: 20px 100px;
+}
+
+span.firstLetter {
+    font-weight: 600;
+    font-size: 3vmax;     
 }

@@ -190,21 +190,24 @@ h3.header {
 /* Feedback form */
 .feedback span {
   font-family: 'Roboto', serif;    
-  font-size: 1.5vw;  
+  font-size: 1.5em;  
   text-align: center;  
 }
 
-.feedback p {
+.feedback p.manifesto {
   font-family: 'Roboto', serif;    
-  font-size: 1.5em;  
+  font-size: 1em;  
   text-align: center; 
 }
 
 /* No results found */
 .noResultsText {
   font-family: 'Roboto', serif;    
+  display: block;
   align-content: center;
+  padding: 100px 0;
   text-align: center; 
+  font-size:1.5em;
 }
 
 @media (max-width: 992px) {

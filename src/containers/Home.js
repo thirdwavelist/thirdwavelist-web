@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { Col } from "reactstrap";
+import { Col, Button } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
 import "./Home.css";
 import config from "../config";
+
+/* global location */
+/* eslint no-restricted-globals: ["off", "location"] */
 
 export default class Home extends Component {
   constructor(props) {
@@ -31,7 +34,6 @@ export default class Home extends Component {
     this.getBrewMethods.bind(this);
     this.getOrigin.bind(this);
     this.getRoastProfile.bind(this);
-    this.getResultsHeader.bind(this);
   }
 
   async componentDidMount() {
@@ -57,7 +59,7 @@ export default class Home extends Component {
     if (cafes.length > 0) {
       return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
-          <div className="imageCard">
+          <div className="imageCard" onClick={() => {location.href=this.getLinkFrom(cafe)}}>
             <img src={cafe.thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             <div className="after">
@@ -70,6 +72,20 @@ export default class Home extends Component {
           </div>
         </Col>
       );
+    } else {
+      return <Col key="error"><div className="noResultsText"><p className="header">Something must be wrong on our end, but we haven't found any cafés matching your criterias!</p><Button outline color="secondary" onClick={this.clear}>Clear</Button></div></Col>
+    }
+  }
+
+  getLinkFrom(cafe) {
+    if (cafe.social_facebook !== null || cafe.social_facebook.length >= 1) {
+      return cafe.social_facebook;
+    } else if (cafe.social_instagram !== null || cafe.social_instagram.length >= 1) {
+      return cafe.social_instagram
+    } else if (cafe.social_website !== null || cafe.social_website.length >= 1) {
+      return cafe.social_website
+    } else {
+      return "#"
     }
   }
 
@@ -126,16 +142,6 @@ export default class Home extends Component {
     else return "Unknown"
   }
 
-  getResultsHeader() {
-    if (this.state.filterText.length > 0 || 
-      (this.state.methodFilter !== null && this.state.methodFilter.value !== "all") ||
-      (this.state.beanFilter !== null && this.state.beanFilter.value !== "all")) {
-        return "Coffee places filtered for you"
-    }
-
-    return;
-  }
-
   toggleBeanDropdown() {
     this.setState({
       beanDropdownOpen: !this.state.beanDropdownOpen,
@@ -165,7 +171,7 @@ export default class Home extends Component {
         } else if (_beanFilter.value === "bean_roast_dark") {
           return cafe.bean_roast_dark;
         }
-      });
+      });    
     }
 
     if (_methodFilter !== null && _methodFilter.value.length > 0) {
@@ -245,7 +251,6 @@ export default class Home extends Component {
         </Box>
 
         <Box className="resultsContainer">
-          <h3 className="header">{this.getResultsHeader()}</h3>
           <Columns breakpoint="desktop">
             {!this.state.isLoading && this.renderCafeList(_cafes)}
           </Columns>
@@ -262,7 +267,7 @@ export default class Home extends Component {
             </FormGroup>
           </Form>
           <br /><br /><br /> */}
-          <p>You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
+          <p className="manifesto">You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
         </div>
       </Container>
     );
