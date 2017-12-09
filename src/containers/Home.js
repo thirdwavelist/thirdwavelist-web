@@ -31,7 +31,6 @@ export default class Home extends Component {
     this.setMethodType = this.setMethodType.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.clear = this.clear.bind(this);
-    this.getBrewMethods.bind(this);
     this.getOrigin.bind(this);
     this.getRoastProfile.bind(this);
   }
@@ -60,14 +59,16 @@ export default class Home extends Component {
       return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard" onClick={() => {location.href=this.getLinkFrom(cafe)}}>
-            <img src={cafe.thumbnail} alt="Thumbnail" />
+            <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             <div className="after">
               <span><b>Roast profile: </b> {this.getRoastProfile(cafe)}</span>
+              <span><b>Roaster: </b> {cafe.bean_roaster}</span>
               <span><b>Origin: </b> {this.getOrigin(cafe)}</span>
               <span><b>Espresso: </b> {cafe.gear_espressomachine}</span>
               <span><b>Grinder: </b> {cafe.gear_grinder}</span>
-              <span><b>Brew methods: </b> {this.getBrewMethods(cafe)}</span>
+              {this.getPourOver(cafe)}
+              {this.getFullImmersion(cafe)}
             </div>
           </div>
         </Col>
@@ -75,6 +76,19 @@ export default class Home extends Component {
     } else {
       return <Col key="error"><div className="noResultsText"><p className="header">Something must be wrong on our end, but we haven't found any cafés matching your criterias!</p><Button outline color="secondary" onClick={this.clear}>Clear</Button></div></Col>
     }
+  }
+
+  getPourOver(cafe) {
+    if (cafe.brew_method_pourover) {
+      return <span><b>Pour-over: </b> {cafe.gear_pourover}</span>
+    }
+  }
+
+  getFullImmersion(cafe) {
+    if (cafe.brew_method_fullimmersion) {
+      return <span><b>Immersive: </b> {cafe.gear_immersive}</span>
+    }
+    return;
   }
 
   getLinkFrom(cafe) {
@@ -113,26 +127,17 @@ export default class Home extends Component {
     this.setState({ methodFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') } })
   }
 
-  getBrewMethods(cafe) {
+  getRoastProfile(cafe) {
     var results = []
-    if (cafe.brew_method_espresso) results.push("E")
-    if (cafe.brew_method_aeropress) results.push("AE")
-    if (cafe.brew_method_fullimmersion) results.push("FI")
-    if (cafe.brew_method_pour_over) results.push("PO")
-    if (cafe.brew_method_syphon) results.push("S")
-
+    if (cafe.bean_roast_light) results.push("Light")
+    if (cafe.bean_roast_medium) results.push("Medium")
+    if (cafe.bean_roast_dark) results.push("Dark")
+    
     if (results.length <= 1) {
       return results.join();
     } else {
       return results.slice(0, -1).join(", ") + " and " + results[results.length-1];
     }
-  }
-
-  getRoastProfile(cafe) {
-    if (cafe.bean_roast_light && cafe.bean_roast_dark) return "Light & Dark"
-    else if (cafe.bean_roast_light) return "Light"
-    else if (cafe.bean_roast_dark) return "Dark"
-    else "Unknown"
   }
 
   getOrigin(cafe) {
@@ -168,6 +173,8 @@ export default class Home extends Component {
           return true || false
         } else if (_beanFilter.value === "bean_roast_light") {
           return cafe.bean_roast_light;
+        } else if (_beanFilter.value === "bean_roast_medium") {
+          return cafe.bean_roast_medium;
         } else if (_beanFilter.value === "bean_roast_dark") {
           return cafe.bean_roast_dark;
         }
@@ -182,8 +189,8 @@ export default class Home extends Component {
           return cafe.brew_method_espresso;
         } else if (_methodFilter.value === "brew_method_aeropress") {
           return cafe.brew_method_aeropress;
-        } else if (_methodFilter.value === "brew_method_pour_over") {
-          return cafe.brew_method_pour_over;
+        } else if (_methodFilter.value === "brew_method_pourover") {
+          return cafe.brew_method_pourover;
         } else if (_methodFilter.value === "brew_method_fullimmersion") {
           return cafe.brew_method_fullimmersion;
         } else if (_methodFilter.value === "brew_method_syphon") {
@@ -222,6 +229,7 @@ export default class Home extends Component {
                   <div className='dropdown'>
                     <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setBeanType}>All</button>
                     <button className='button label' data-arg1="bean_roast_light" data-arg2="Light" onClick={this.setBeanType}>Light</button>
+                    <button className='button label' data-arg1="bean_roast_medium" data-arg2="Medium" onClick={this.setBeanType}>Medium</button>
                     <button className='button label' data-arg1="bean_roast_dark" data-arg2="Dark" onClick={this.setBeanType}>Dark</button>
                   </div>
                 </div>
@@ -240,7 +248,7 @@ export default class Home extends Component {
                     <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setMethodType}>All</button>
                     <button className='button label' data-arg1="brew_method_espresso" data-arg2="Espresso" onClick={this.setMethodType}>Espresso</button>
                     <button className='button label' data-arg1="brew_method_aeropress" data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
-                    <button className='button label' data-arg1="brew_method_pour_over" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
+                    <button className='button label' data-arg1="brew_method_pourover" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
                     <button className='button label' data-arg1="brew_method_syphon" data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
                     <button className='button label' data-arg1="brew_method_full_immersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
                   </div>
