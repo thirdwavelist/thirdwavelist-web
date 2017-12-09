@@ -116,6 +116,14 @@
   border-bottom-right-radius: 5px;
 }
 
+h3.header {
+  font-family: 'Roboto', serif;    
+  font-size: 2em;  
+  text-align: center;  
+  padding-bottom: 20px
+}
+
+/* Results */ 
 .resultsContainer {
   background-color: #e4e4e4;
   justify-content: center;
@@ -123,41 +131,84 @@
   display: flex;  
 }
 
-h3.header {
-  font-family: 'Roboto', serif;    
-  font-size: 2em;  
-  text-align: center;  
-  padding-bottom: 20px
-}
+/* Results > card */
 .resultsCard {
   padding: 10px;
   align-self: center;
 }
 .resultsCard div.imageCard {
   position: relative;
+  display: inline-block;
   width: 100%;  
 }
-.resultsCard span.imageTitle {
+
+.imageCard span.imageTitle {
   font-family: 'Roboto', serif;
   font-style: bold;
   font-weight: 600;
-  font-size: 2vw;
+  display: block;  
+  font-size: 1.7vw;
   position: absolute; 
   top: 40%; 
   color: white;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;  
   left: 0; 
   text-align: center;    
   width: 100%; 
 }
 
+.imageCard .after {
+  padding: 10px 10px;
+}
+
+.imageCard .after span {
+  font-family: 'Roboto', serif;
+  display: block;  
+  font-size: 1.3vw;
+  padding: 2px;
+  color: white;
+  width: 100%; 
+}
+
+/** Hover over effect */
+.imageCard .after {
+  position: absolute;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  color: #FFF;
+}
+.imageCard:hover .after {
+  display: block;
+  background: rgba(0, 0, 0, .6);
+}
+
+.imageCard:hover .imageTitle { visibility: hidden; }
+
+/* Feedback form */
 .feedback span {
   font-family: 'Roboto', serif;    
-  font-size: 2vw;  
+  font-size: 1.5vw;  
   text-align: center;  
 }
 
 .feedback p {
   font-family: 'Roboto', serif;    
-  font-size: 2vw;  
+  font-size: 1.5em;  
   text-align: center; 
+}
+
+/* No results found */
+.noResultsText {
+  font-family: 'Roboto', serif;    
+  align-content: center;
+  text-align: center; 
+}
+
+@media (max-width: 992px) {
+  .imageCard .after span { font-size: 1.5em; }
+  .imageCard span.imageTitle { font-size: 2em; }
+  .feedback p { font-size: 1.5em; }
 }

@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="title">Third Wave List</h1>
+        <h1 className="title"><a className="no-style" href="/" alt="Home">Third Wave List</a></h1>
         <Routes />
         <div className="footer">
           <span>Made with ❤️ by Kristoffer Tjalve and Antal János Monori.</span>
