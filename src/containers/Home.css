@@ -195,14 +195,26 @@ h3.header {
 .imageCard:hover .imageTitle { visibility: hidden; }
 
 /* Feedback form */
-.feedback span {
+.feedback div {
+  width: auto;
+}
+
+.feedback p.title {
   font-size: 1.5em;  
-  text-align: center;  
+  text-align: center;    
 }
 
 .feedback p.manifesto {
   font-size: 1em;  
-  text-align: center; 
+  text-align: center;      
+}
+
+.feedback .inputForm {
+  width: 15vw;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
 }
 
 /* No results found */

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Button } from "reactstrap";
+import { Col, Button, Form, FormGroup, Input } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
@@ -21,7 +21,8 @@ export default class Home extends Component {
       beanFilter: null,
       locationFilter: null,
       beanDropdownOpen: false,
-      methodDropdownOpen: false
+      methodDropdownOpen: false,
+      email: null
     };
 
     this.toggleBeanDropdown = this.toggleBeanDropdown.bind(this);
@@ -31,8 +32,10 @@ export default class Home extends Component {
     this.setMethodType = this.setMethodType.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.clear = this.clear.bind(this);
-    this.getOrigin.bind(this);
-    this.getRoastProfile.bind(this);
+    this.getOrigin = this.getOrigin.bind(this);
+    this.getRoastProfile = this.getRoastProfile.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.subscribe = this.subscribe.bind(this)
   }
 
   async componentDidMount() {
@@ -44,6 +47,17 @@ export default class Home extends Component {
     }
 
     this.setState({ isLoading: false });
+  }
+
+  subscribe() {
+    this.setState({ email: null });
+    invokeApig({
+      path: "/email",
+      method: "POST",
+      headers: { "x-api-key": config.apiGateway.API_KEY },
+      body: { "email": this.state.email }
+    });
+    location.href="/"
   }
 
   cafes() {
@@ -125,6 +139,10 @@ export default class Home extends Component {
       beanDropdownOpen: false,
       methodDropdownOpen: false
     })
+  }
+
+  handleEmailChange(event) {
+    this.setState({email: event.target.value.toLowerCase()});    
   }
 
   filterList(event) {
@@ -278,16 +296,13 @@ export default class Home extends Component {
         </Box>
 
         <div className="feedback">
-          {/* <span>Stay up-to-date with Third Wave List</span>
-
+          <p className="title">Want to stay up to date?</p>
           <Form>
             <FormGroup>
-              <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-              <button type="submit" className="btn btn-lg btn-primary">Subscribe</button>
+              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.value} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
             </FormGroup>
           </Form>
-          <br /><br /><br /> */}
+          <br />
           <p className="manifesto">You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
         </div>
       </Container>
