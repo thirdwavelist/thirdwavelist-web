@@ -301,12 +301,12 @@ export default class Home extends Component {
         </Box>
 
         <div className="feedback">
-          <p className="title">Want to stay up to date?</p>
+          {/* <p className="title">Want to stay up to date?</p>
           <Form>
             <FormGroup>
               <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
             </FormGroup>
-          </Form>
+          </Form> */}
           <br />
           <p className="manifesto">You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
         </div>
