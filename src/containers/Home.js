@@ -22,7 +22,7 @@ export default class Home extends Component {
       locationFilter: null,
       beanDropdownOpen: false,
       methodDropdownOpen: false,
-      email: null
+      email: ""
     };
 
     this.toggleBeanDropdown = this.toggleBeanDropdown.bind(this);
@@ -50,14 +50,16 @@ export default class Home extends Component {
   }
 
   subscribe() {
-    this.setState({ email: null });
-    invokeApig({
-      path: "/email",
-      method: "POST",
-      headers: { "x-api-key": config.apiGateway.API_KEY },
-      body: { "email": this.state.email }
-    });
-    location.href="/"
+    if (this.state.email !== null && this.state.email.length > 0) {
+      this.setState({ email: "" });
+      invokeApig({
+        path: "/email",
+        method: "POST",
+        headers: { "x-api-key": config.apiGateway.API_KEY },
+        body: { "email": this.state.email }
+      });
+      location.href="/"
+    }
   }
 
   cafes() {
@@ -299,7 +301,7 @@ export default class Home extends Component {
           <p className="title">Want to stay up to date?</p>
           <Form>
             <FormGroup>
-              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.value} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
+              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
             </FormGroup>
           </Form>
           <br />

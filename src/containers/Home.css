@@ -230,4 +230,5 @@ h3.header {
   .imageCard .after span { font-size: 1.3em; line-height: 200%;  }
   .imageCard span.imageTitle { font-size: 2em; }
   .feedback p { font-size: 1.5em; }
+  .feedback .inputForm { width: 90%; }
 }
