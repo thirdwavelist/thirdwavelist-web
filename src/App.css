@@ -13,10 +13,6 @@ a.no-style:hover {
     color: #3F51B5 !important;
 }
 
-body {
-    font-family: 'Roboto', serif;    
-}    
-
 div.footer {
     margin-top: 20px;
     height: 100px;

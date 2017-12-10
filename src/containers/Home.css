@@ -143,7 +143,6 @@ h3.header {
 }
 
 .imageCard span.imageTitle {
-  font-family: 'Roboto', serif;
   font-style: bold;
   font-weight: 600;
   display: block;  
@@ -162,12 +161,17 @@ h3.header {
 }
 
 .imageCard .after span {
-  font-family: 'Roboto', serif;
-  display: block;  
-  font-size: 1.3vw;
-  padding: 2px;
+  font-size: 0.95vw;
+  padding: 1px;
   color: white;
-  width: 100%; 
+}
+
+.imageCard .after span.floatLeft {
+  float: left; text-align: right; width: 35%;
+}
+
+.imageCard .after span.floatRight {
+  float: right; text-align: left; width: 65%;
 }
 
 /** Hover over effect */
@@ -179,6 +183,9 @@ h3.header {
   height: 100%;
   display: none;
   color: #FFF;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 120%;
 }
 .imageCard:hover .after {
   display: block;
@@ -189,20 +196,17 @@ h3.header {
 
 /* Feedback form */
 .feedback span {
-  font-family: 'Roboto', serif;    
   font-size: 1.5em;  
   text-align: center;  
 }
 
 .feedback p.manifesto {
-  font-family: 'Roboto', serif;    
   font-size: 1em;  
   text-align: center; 
 }
 
 /* No results found */
 .noResultsText {
-  font-family: 'Roboto', serif;    
   display: block;
   align-content: center;
   padding: 100px 0;
@@ -211,7 +215,7 @@ h3.header {
 }
 
 @media (max-width: 992px) {
-  .imageCard .after span { font-size: 1.5em; }
+  .imageCard .after span { font-size: 1.3em; line-height: 200%;  }
   .imageCard span.imageTitle { font-size: 2em; }
   .feedback p { font-size: 1.5em; }
 }

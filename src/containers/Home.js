@@ -62,11 +62,11 @@ export default class Home extends Component {
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             <div className="after">
-              <span><b>Roast profile: </b> {this.getRoastProfile(cafe)}</span>
-              <span><b>Roaster: </b> {cafe.bean_roaster}</span>
-              <span><b>Origin: </b> {this.getOrigin(cafe)}</span>
-              <span><b>Espresso: </b> {cafe.gear_espressomachine}</span>
-              <span><b>Grinder: </b> {cafe.gear_grinder}</span>
+              <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
+              <span className="floatLeft"><b>Roaster: </b></span> <span className="floatRight">{cafe.bean_roaster}</span>
+              <span className="floatLeft"><b>Origin: </b></span> <span className="floatRight">{this.getOrigin(cafe)}</span>
+              {this.getEspresso(cafe)}
+              {this.getGrinder(cafe)}
               {this.getPourOver(cafe)}
               {this.getFullImmersion(cafe)}
             </div>
@@ -78,15 +78,28 @@ export default class Home extends Component {
     }
   }
 
+  getGrinder(cafe) {
+    if (cafe.gear_grinder !== null && cafe.gear_grinder.length > 1) {
+      return <div><span className="floatLeft"><b>Grinder: </b></span> <span className="floatRight">{cafe.gear_grinder}</span></div>
+    }
+  }
+
+  getEspresso(cafe) {
+    if (cafe.brew_method_espresso && cafe.gear_espressomachine !== null && cafe.gear_espressomachine.length > 1) {
+      return <div><span className="floatLeft"><b>Espresso: </b></span> <span className="floatRight">{cafe.gear_espressomachine}</span></div>
+    }
+    return
+  }
+
   getPourOver(cafe) {
     if (cafe.brew_method_pourover) {
-      return <span><b>Pour-over: </b> {cafe.gear_pourover}</span>
+      return <div><span className="floatLeft"><b>Pour-over: </b></span> <span className="floatRight">{cafe.gear_pourover}</span></div>
     }
   }
 
   getFullImmersion(cafe) {
     if (cafe.brew_method_fullimmersion) {
-      return <span><b>Immersive: </b> {cafe.gear_immersive}</span>
+      return <div><span className="floatLeft"><b>Immersive: </b></span> <span className="floatRight"> {cafe.gear_immersive}</span></div>
     }
     return;
   }
