@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Col, Button, Form, FormGroup, Input } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
@@ -51,14 +52,13 @@ export default class Home extends Component {
 
   subscribe() {
     if (this.state.email !== null && this.state.email.length > 0) {
-      this.setState({ email: "" });
       invokeApig({
         path: "/email",
         method: "POST",
         headers: { "x-api-key": config.apiGateway.API_KEY },
         body: { "email": this.state.email }
       });
-      location.href="/"
+      this.setState({ email: "" });      
     }
   }
 
@@ -305,7 +305,7 @@ export default class Home extends Component {
           <p className="title">Want to stay up to date?</p>
           <Form>
             <FormGroup>
-              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
+              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/>  <Link to="/"><Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button></Link>
             </FormGroup>
           </Form>
           <br />
