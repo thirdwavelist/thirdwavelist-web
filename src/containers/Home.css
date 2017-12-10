@@ -192,7 +192,7 @@ h3.header {
   height: 100%;
   display: none;
   color: #FFF;
-  line-height: 90%;
+  line-height: 1vw;
 }
 .imageCard:hover .after {
   display: block;

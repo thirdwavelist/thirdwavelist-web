@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Col, Button, Form, FormGroup, Input } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
@@ -74,10 +73,10 @@ export default class Home extends Component {
     if (cafes.length > 0) {
       return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
-          <div className="imageCard" onClick={() => {location.href=this.getLinkFrom(cafe)}}>
+          <div className="imageCard">
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
-            <div className="after">
+            <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}>
               <div className="center">
                 <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
                 <span className="floatLeft"><b>Roaster: </b></span> <span className="floatRight">{cafe.bean_roaster}</span>
@@ -305,7 +304,7 @@ export default class Home extends Component {
           <p className="title">Want to stay up to date?</p>
           <Form>
             <FormGroup>
-              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/>  <Link to="/"><Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button></Link>
+              <Input className="inputForm" type="email" name="email" id="exampleEmail" placeholder="Enter your email address here." value={this.state.email} onChange={this.handleEmailChange}/> <Button className="inputForm" outline color="primary" onClick={() => {this.subscribe()}}>Subscribe</Button>
             </FormGroup>
           </Form>
           <br />
