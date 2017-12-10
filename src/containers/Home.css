@@ -161,9 +161,17 @@ h3.header {
 }
 
 .imageCard .after span {
-  font-size: 0.95vw;
+  font-size: 0.8vw;  
   padding: 1px;
   color: white;
+}
+
+.imageCard .after div.center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 
 .imageCard .after span.floatLeft {
@@ -171,7 +179,8 @@ h3.header {
 }
 
 .imageCard .after span.floatRight {
-  float: right; text-align: left; width: 65%;
+  text-align: left; width: 64%;
+  display: inline-block;
 }
 
 /** Hover over effect */
@@ -183,8 +192,6 @@ h3.header {
   height: 100%;
   display: none;
   color: #FFF;
-  text-align: center;
-  vertical-align: middle;
   line-height: 120%;
 }
 .imageCard:hover .after {
@@ -227,7 +234,7 @@ h3.header {
 }
 
 @media (max-width: 992px) {
-  .imageCard .after span { font-size: 1.3em; line-height: 200%;  }
+  .imageCard .after span { font-size: 3vw;  }
   .imageCard span.imageTitle { font-size: 2em; }
   .feedback p { font-size: 1.5em; }
   .feedback .inputForm { width: 90%; }

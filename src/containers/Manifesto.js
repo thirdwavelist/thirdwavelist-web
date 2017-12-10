@@ -13,5 +13,5 @@ export default () =>
     <br /><br />
     <span className="firstLetter">V.</span> We are easy to reach! If you have questions or want to get involved, just hit us a message. 
     <br /><br />
-    <em>With ❤️ from Antal and Kristoffer</em>
+    <em>With <span role="img" aria-label="love">❤️</span> from Antal and Kristoffer</em>
 </div>

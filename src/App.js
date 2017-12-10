@@ -9,7 +9,7 @@ class App extends Component {
         <h1 className="title"><a className="no-style" href="/" alt="Home">Third Wave List</a></h1>
         <Routes />
         <div className="footer">
-          <span>Made with ❤️ by Kristoffer Tjalve and Antal János Monori.</span>
+          <span>Made with <span role="img" aria-label="love">❤️</span> by Kristoffer Tjalve and Antal János Monori.</span>
           <br />
           <span>Copyright (c). Third Wave List, 2017. All rights reserved.</span>
         </div>

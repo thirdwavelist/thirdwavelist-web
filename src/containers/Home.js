@@ -78,13 +78,15 @@ export default class Home extends Component {
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             <div className="after">
-              <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
-              <span className="floatLeft"><b>Roaster: </b></span> <span className="floatRight">{cafe.bean_roaster}</span>
-              <span className="floatLeft"><b>Origin: </b></span> <span className="floatRight">{this.getOrigin(cafe)}</span>
-              {this.getEspresso(cafe)}
-              {this.getGrinder(cafe)}
-              {this.getPourOver(cafe)}
-              {this.getFullImmersion(cafe)}
+              <div className="center">
+                <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
+                <span className="floatLeft"><b>Roaster: </b></span> <span className="floatRight">{cafe.bean_roaster}</span>
+                <span className="floatLeft"><b>Origin: </b></span> <span className="floatRight">{this.getOrigin(cafe)}</span>
+                {this.getEspresso(cafe)}
+                {this.getGrinder(cafe)}
+                {this.getPourOver(cafe)}
+                {this.getFullImmersion(cafe)}
+              </div>
             </div>
           </div>
         </Col>
@@ -201,7 +203,8 @@ export default class Home extends Component {
     let _search = this.state.filterText.trim().toLowerCase();
 
     if (_beanFilter !== null && _beanFilter.value.length > 0) {
-      _cafes = _cafes.filter(function (cafe) {
+      // eslint-disable-next-line
+      _cafes.filter(function (cafe) {
         if (_beanFilter.value === "all") {
           return true || false
         } else if (_beanFilter.value === "bean_roast_light") {
@@ -215,7 +218,8 @@ export default class Home extends Component {
     }
 
     if (_methodFilter !== null && _methodFilter.value.length > 0) {
-      _cafes = _cafes.filter(function (cafe) {
+      // eslint-disable-next-line
+      _cafes.filter(function (cafe) {
         if (_methodFilter.value === "all") {
           return true || false
         } else if (_methodFilter.value === "brew_method_espresso") {

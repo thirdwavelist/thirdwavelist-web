@@ -16,6 +16,7 @@ a.no-style:hover {
 div.footer {
     margin-top: 20px;
     height: 100px;
+    font-size: 0.8em;
     text-align: center;
     background-color: rgb(220, 220, 220)
 }
