@@ -1,12 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { injectGlobal } from "styled-components";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import "react-select/dist/react-select.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bulma-components/dist/react-bulma-components.min.css";
+import spectralScFont from "./fonts/SpectralSC-ExtraLight.ttf"
 import "./index.css";
+
+injectGlobal`
+@font-face {
+  font-family: 'Spectral SC';
+  src: url(${spectralScFont});
+}`;
 
 ReactDOM.render(
   <Router>

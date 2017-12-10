@@ -204,7 +204,7 @@ export default class Home extends Component {
 
     if (_beanFilter !== null && _beanFilter.value.length > 0) {
       // eslint-disable-next-line
-      _cafes.filter(function (cafe) {
+      _cafes = _cafes.filter(function (cafe) {
         if (_beanFilter.value === "all") {
           return true || false
         } else if (_beanFilter.value === "bean_roast_light") {
@@ -219,7 +219,7 @@ export default class Home extends Component {
 
     if (_methodFilter !== null && _methodFilter.value.length > 0) {
       // eslint-disable-next-line
-      _cafes.filter(function (cafe) {
+      _cafes = _cafes.filter(function (cafe) {
         if (_methodFilter.value === "all") {
           return true || false
         } else if (_methodFilter.value === "brew_method_espresso") {
@@ -278,7 +278,7 @@ export default class Home extends Component {
                   <span>Method</span>
                 </label>
                 <a className='button'>
-                  <span>{this.state.methodFilter ? this.state.methodFilter.label : "Select your favorite method"}</span>
+                  <span>{this.state.methodFilter ? this.state.methodFilter.label : "Select a brew method"}</span>
                 </a>
                 <div className={"dropdown-container " + (this.state.methodDropdownOpen ? "is-open" : null)}>
                   <div className='dropdown'>

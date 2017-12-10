@@ -192,7 +192,7 @@ h3.header {
   height: 100%;
   display: none;
   color: #FFF;
-  line-height: 120%;
+  line-height: 90%;
 }
 .imageCard:hover .after {
   display: block;
@@ -234,7 +234,7 @@ h3.header {
 }
 
 @media (max-width: 992px) {
-  .imageCard .after span { font-size: 3vw;  }
+  .imageCard .after span { font-size: 3vw; line-height: 150%; }
   .imageCard span.imageTitle { font-size: 2em; }
   .feedback p { font-size: 1.5em; }
   .feedback .inputForm { width: 90%; }

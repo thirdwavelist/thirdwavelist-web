@@ -12,7 +12,8 @@
     "react-scripts": "1.0.17",
     "react-select": "^1.0.0-rc.10",
     "reactbulma": "^1.1.1",
-    "reactstrap": "^5.0.0-alpha.4"
+    "reactstrap": "^5.0.0-alpha.4",
+    "styled-components": "^2.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
