@@ -250,7 +250,7 @@ export default class Home extends Component {
                 <label className='location-label label'>
                   <span>Where</span>
                 </label>
-                <input className='location-input home-input' name="location-selector" disabled='true' value="Budapest, Hungary" onChange={this.setLocation} />
+                <input className='location-input' name="location-selector" disabled='true' value="Budapest, Hungary" onChange={this.setLocation} />
               </form>
             </Columns.Column>
             <Columns.Column>
