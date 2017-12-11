@@ -4,23 +4,23 @@ export async function invokeApig({
   path,
   method = "GET",
   headers = {},
-  body = {}
+  body = undefined
 }) {
-    const endPoint = config.apiGateway.URL
-    const version = config.apiGateway.VERSION
+  const endPoint = config.apiGateway.URL
+  const version = config.apiGateway.VERSION
 
-    const requestParams = {
-      method: method,
-      url: endPoint + version + path,
-      headers: headers,
-      body: body
-    };
+  const requestParams = {
+    method: method,
+    url: endPoint + version + path,
+    headers: headers,
+    body: body
+  };
 
-    const results = await fetch(requestParams.url, {
-      method,
-      headers,
-      body
-    });
+  const results = await fetch(requestParams.url, {
+    method,
+    headers,
+    body
+  });
 
   if (results.status !== 200) {
     throw new Error(await results.text());
