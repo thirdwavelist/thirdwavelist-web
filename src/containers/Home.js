@@ -286,7 +286,7 @@ export default class Home extends Component {
                     <button className='button label' data-arg1="brew_method_aeropress" data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
                     <button className='button label' data-arg1="brew_method_pourover" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
                     <button className='button label' data-arg1="brew_method_syphon" data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
-                    <button className='button label' data-arg1="brew_method_full_immersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
+                    <button className='button label' data-arg1="brew_method_fullimmersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
                   </div>
                 </div>
               </div>
