@@ -16,49 +16,43 @@ export default class Home extends Component {
     this.state = {
       isLoading: true,
       cafes: [],
+      roasters: [],
       filterText: "",
       methodFilter: null,
+      roasterFilter: null,
       beanFilter: null,
       locationFilter: null,
       beanDropdownOpen: false,
       methodDropdownOpen: false,
-      email: ""
+      roasterDropdownOpen: false,
+      locationDropdownOpen: false
     };
 
     this.toggleBeanDropdown = this.toggleBeanDropdown.bind(this);
     this.toggleMethodDropdown = this.toggleMethodDropdown.bind(this);
+    this.toggleRoasterDropdown = this.toggleRoasterDropdown.bind(this);
+    this.toggleLocationDropdown = this.toggleLocationDropdown.bind(this);
     this.filterList = this.filterList.bind(this);
     this.setBeanType = this.setBeanType.bind(this);
     this.setMethodType = this.setMethodType.bind(this);
     this.setLocation = this.setLocation.bind(this);
+    this.setRoaster = this.setRoaster.bind(this);
     this.clear = this.clear.bind(this);
     this.getOrigin = this.getOrigin.bind(this);
     this.getRoastProfile = this.getRoastProfile.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.subscribe = this.subscribe.bind(this)
   }
 
   async componentDidMount() {
     try {
-      const results = await this.cafes();
-      this.setState({ cafes: results });
+      const cafeCallResponse = await this.cafes();
+      this.setState({ cafes: cafeCallResponse });
+      const roasterCallResponse = await this.roasters();
+      this.setState({roasters: roasterCallResponse});
     } catch (e) {
       console.log(e);
     }
 
     this.setState({ isLoading: false });
-  }
-
-  subscribe() {
-    if (this.state.email !== null && this.state.email.length > 0) {
-      invokeApig({
-        path: "/email",
-        method: "POST",
-        headers: { "x-api-key": config.apiGateway.API_KEY },
-        body: { "email": this.state.email }
-      });
-      this.setState({ email: "" });      
-    }
   }
 
   cafes() {
@@ -67,6 +61,22 @@ export default class Home extends Component {
       method: "GET",
       headers: { "x-api-key": config.apiGateway.API_KEY }
     });
+  }
+
+  roasters() {
+    return invokeApig({
+      path: "/roaster",
+      method: "GET",
+      headers: { "x-api-key": config.apiGateway.API_KEY }
+    });
+  }
+
+  renderRoasterList(roasters) {
+    if (roasters.length > 0) {
+      return roasters.map((roaster) =>
+        <button className='button label' data-arg1="{roaster.name}" data-arg2="{roaster.name}" onClick={this.setRoaster}>{roaster.name} {roaster.flag}</button>
+      );
+    }
   }
 
   renderCafeList(cafes) {
@@ -91,7 +101,7 @@ export default class Home extends Component {
         </Col>
       );
     } else {
-      return <Col key="error"><div className="noResultsText"><p className="header">Something must be wrong on our end, but we haven't found any cafés matching your criterias!</p><Button outline color="secondary" onClick={this.clear}>Clear</Button></div></Col>
+      return <Col key="error"><div className="noResultsText"><p className="header">Something must be wrong on our end, as we haven't found any cafés matching your criterias!</p><Button outline color="secondary" onClick={this.clear}>Clear</Button></div></Col>
     }
   }
 
@@ -138,27 +148,29 @@ export default class Home extends Component {
       filterText: "",
       beanFilter: null,
       methodFilter: null,
+      roasterFilter: null,
       locationFilter: null,
       beanDropdownOpen: false,
-      methodDropdownOpen: false
+      methodDropdownOpen: false,
+      roasterDropdownOpen: false,
+      locationDropdownOpen: false
     })
   }
-
-  handleEmailChange(event) {
-    this.setState({email: event.target.value.toLowerCase()});    
-  }
-
+  
   filterList(event) {
     this.setState({ filterText: event.target.value });
   }
-  setLocation(location) {
-    this.setState({ locationFilter: location })
+  setLocation(event) {
+    this.setState({ locationFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') } })
   }
   setBeanType(event) {
     this.setState({ beanFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') } })
   }
   setMethodType(event) {
     this.setState({ methodFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') } })
+  }
+  setRoaster(event) {
+    this.setState({ roasterFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') } })
   }
 
   getRoastProfile(cafe) {
@@ -184,22 +196,59 @@ export default class Home extends Component {
   toggleBeanDropdown() {
     this.setState({
       beanDropdownOpen: !this.state.beanDropdownOpen,
-      methodDropdownOpen: false
+      methodDropdownOpen: false,
+      roasterDropdownOpen: false,
+      locationDropdownOpen: false
+    });
+  }
+  toggleRoasterDropdown() {
+    this.setState({
+      roasterDropdownOpen: !this.state.roasterDropdownOpen,
+      beanDropdownOpen: false,
+      methodDropdownOpen: false,
+      locationDropdownOpen: false
     });
   }
   toggleMethodDropdown() {
     this.setState({
       methodDropdownOpen: !this.state.methodDropdownOpen,
+      roasterDropdownOpen: false,
+      beanDropdownOpen: false,
+      locationDropdownOpen: false
+    });
+  }
+  toggleLocationDropdown() {
+    this.setState({
+      locationDropdownOpen: !this.state.locationDropdownOpen,
+      methodDropdownOpen: false,
+      roasterDropdownOpen: false,
       beanDropdownOpen: false
     });
   }
 
   render() {
     let _cafes = this.state.cafes;
+    let _roasters = this.state.roasters;
 
     let _beanFilter = this.state.beanFilter;
     let _methodFilter = this.state.methodFilter;
+    let _locationFilter = this.state.locationFilter;
+    let _roasterFilter = this.state.roasterFilter;
     let _search = this.state.filterText.trim().toLowerCase();
+
+    if (_locationFilter !== null && _locationFilter.value.length > 0) {
+      // eslint-disable-next-line
+      _cafes = _cafes.filter(function (cafe) {
+        return cafe.location.toLowerCase().indexOf(_locationFilter.value) !== -1;
+      });
+    }
+
+    if (_roasterFilter !== null && _roasterFilter.value.length > 0) {
+      // eslint-disable-next-line
+      _cafes = _cafes.filter(function (cafe) {
+        return cafe.bean_roaster.toLowerCase().indexOf(_roasterFilter.value) !== -1;
+      });
+    }
 
     if (_beanFilter !== null && _beanFilter.value.length > 0) {
       // eslint-disable-next-line
@@ -246,12 +295,20 @@ export default class Home extends Component {
         <Box className="landing-container">
           <Columns breakpoint="desktop">
             <Columns.Column>
-              <form className='location-block'>
-                <label className='location-label label'>
+              <div className='dropdown-block' onClick={this.toggleLocationDropdown}>
+                <label className='dropdown-label label'>
                   <span>Where</span>
                 </label>
-                <input className='location-input' name="location-selector" disabled='true' value="Budapest, Hungary" onChange={this.setLocation} />
-              </form>
+                <a className='button'>
+                  <span>{this.state.locationFilter ? this.state.locationFilter.label : "Select a city"}</span>
+                </a>
+                <div className={"dropdown-container " + (this.state.locationDropdownOpen ? "is-open" : null)}>
+                  <div className='dropdown'>
+                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setLocation}>All</button>    
+                    <button className='button label' data-arg1="budapest" data-arg2="Budapest" onClick={this.setLocation}>Budapest</button>
+                  </div>
+                </div>
+              </div>
             </Columns.Column>
             <Columns.Column>
               <div className='dropdown-block' onClick={this.toggleBeanDropdown}>
@@ -291,6 +348,22 @@ export default class Home extends Component {
                 </div>
               </div>
             </Columns.Column>
+            <Columns.Column>
+              <div className='dropdown-block' onClick={this.toggleRoasterDropdown}>
+                <label className='dropdown-label label'>
+                  <span>Roaster</span>
+                </label>
+                <a className='button'>
+                  <span>{this.state.roasterFilter ? this.state.roasterFilter.label : "Select a roaster"}</span>
+                </a>
+                <div className={"dropdown-container " + (this.state.roasterDropdownOpen ? "is-open" : null)}>
+                  <div className='dropdown'>
+                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setRoaster}>All</button>
+                    {!this.state.isLoading && this.renderRoasterList(_roasters)}
+                  </div>
+                </div>
+              </div>
+            </Columns.Column>
           </Columns>
         </Box>
 
@@ -299,11 +372,6 @@ export default class Home extends Component {
             {!this.state.isLoading && this.renderCafeList(_cafes)}
           </Columns>
         </Box>
-
-        <div className="feedback">
-          <br />
-          <p className="manifesto">You can read our manifesto <a href="/manifesto" alt="Manifesto">here</a>.</p>
-        </div>
       </Container>
     );
   }

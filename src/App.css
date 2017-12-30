@@ -7,10 +7,10 @@ h1.title {
 }
 a.no-style {
     text-decoration: none !important;
-    color: #3F51B5;  
+    color: #4A4AF1;  
 }
 a.no-style:hover {
-    color: #3F51B5 !important;
+    color: #4A4AF1 !important;
 }
 
 div.footer {

@@ -196,6 +196,7 @@ h3.header {
 }
 .imageCard:hover .after {
   display: block;
+  cursor: pointer;
   background: rgba(0, 0, 0, .6);
 }
 
