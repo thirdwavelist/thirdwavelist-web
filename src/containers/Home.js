@@ -47,7 +47,7 @@ export default class Home extends Component {
       const cafeCallResponse = await this.cafes();
       this.setState({ cafes: cafeCallResponse });
       const roasterCallResponse = await this.roasters();
-      this.setState({roasters: roasterCallResponse});
+      this.setState({ roasters: roasterCallResponse});
     } catch (e) {
       console.log(e);
     }
@@ -74,7 +74,7 @@ export default class Home extends Component {
   renderRoasterList(roasters) {
     if (roasters.length > 0) {
       return roasters.map((roaster) =>
-        <button className='button label' data-arg1="{roaster.name}" data-arg2="{roaster.name}" onClick={this.setRoaster}>{roaster.name} {roaster.flag}</button>
+        <button className='button label' data-arg1={roaster.name} data-arg2={roaster.name} onClick={this.setRoaster}>{roaster.name} {roaster.flag}</button>
       );
     }
   }
@@ -239,14 +239,22 @@ export default class Home extends Component {
     if (_locationFilter !== null && _locationFilter.value.length > 0) {
       // eslint-disable-next-line
       _cafes = _cafes.filter(function (cafe) {
-        return cafe.location.toLowerCase().indexOf(_locationFilter.value) !== -1;
+        if (_locationFilter.value === "all") {
+          return true || false
+        } else {
+          return cafe.city.toLowerCase().includes(_locationFilter.value.toLowerCase());
+        }
       });
     }
 
     if (_roasterFilter !== null && _roasterFilter.value.length > 0) {
       // eslint-disable-next-line
       _cafes = _cafes.filter(function (cafe) {
-        return cafe.bean_roaster.toLowerCase().indexOf(_roasterFilter.value) !== -1;
+        if (_roasterFilter.value === "all") {
+          return true || false
+        } else {
+          return cafe.bean_roaster.toLowerCase().includes(_roasterFilter.value.toLowerCase());
+        }
       });
     }
 
