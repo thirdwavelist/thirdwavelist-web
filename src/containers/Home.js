@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { Col, Button } from "reactstrap";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import { Col, Button } from 'reactstrap';
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
-import "./Home.css";
 import config from "../config";
+import "./Home.css";
 
 /* global location */
 /* eslint no-restricted-globals: ["off", "location"] */
@@ -86,7 +87,12 @@ export default class Home extends Component {
           <div className="imageCard">
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
-            <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}>
+            {/* <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}> */}
+            <Link to = {{ 
+                pathname: '/'+cafe.city.toLowerCase()+'/'+cafe.name.replace(/\s+/g, '-').toLowerCase(),
+                state:{ cafeId: cafe.uid }
+              }}
+              className="after">
               <div className="center">
                 <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
                 <span className="floatLeft"><b>Roaster: </b></span> <span className="floatRight">{cafe.bean_roaster}</span>
@@ -96,7 +102,8 @@ export default class Home extends Component {
                 {this.getPourOver(cafe)}
                 {this.getFullImmersion(cafe)}
               </div>
-            </div>
+            {/* </div> */}
+            </Link>
           </div>
         </Col>
       );
@@ -299,88 +306,92 @@ export default class Home extends Component {
     }
 
     return (
-      <Container fluid>
-        <Box className="landing-container">
-          <Columns breakpoint="desktop">
-            <Columns.Column>
-              <div className='dropdown-block' onClick={this.toggleLocationDropdown}>
-                <label className='dropdown-label label'>
-                  <span>Where</span>
-                </label>
-                <a className='button'>
-                  <span>{this.state.locationFilter ? this.state.locationFilter.label : "Select a city"}</span>
-                </a>
-                <div className={"dropdown-container " + (this.state.locationDropdownOpen ? "is-open" : null)}>
-                  <div className='dropdown'>
-                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setLocation}>All</button>    
-                    <button className='button label' data-arg1="budapest" data-arg2="Budapest" onClick={this.setLocation}>Budapest</button>
+      <div>
+        <h1 className="title"><a className="no-style" href="/" alt="Home">Third Wave List</a></h1>
+        
+        <Container fluid>
+          <Box className="landing-container">
+            <Columns breakpoint="desktop">
+              <Columns.Column>
+                <div className='dropdown-block' onClick={this.toggleLocationDropdown}>
+                  <label className='dropdown-label label'>
+                    <span>Where</span>
+                  </label>
+                  <a className='button'>
+                    <span>{this.state.locationFilter ? this.state.locationFilter.label : "Select a city"}</span>
+                  </a>
+                  <div className={"dropdown-container " + (this.state.locationDropdownOpen ? "is-open" : null)}>
+                    <div className='dropdown'>
+                      <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setLocation}>All</button>    
+                      <button className='button label' data-arg1="budapest" data-arg2="Budapest" onClick={this.setLocation}>Budapest</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Columns.Column>
-            <Columns.Column>
-              <div className='dropdown-block' onClick={this.toggleBeanDropdown}>
-                <label className='dropdown-label label'>
-                  <span>Bean</span>
-                </label>
-                <a className='button'>
-                  <span>{this.state.beanFilter ? this.state.beanFilter.label : "Select a bean type"}</span>
-                </a>
-                <div className={"dropdown-container " + (this.state.beanDropdownOpen ? "is-open" : null)}>
-                  <div className='dropdown'>
-                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setBeanType}>All</button>
-                    <button className='button label' data-arg1="bean_roast_light" data-arg2="Light" onClick={this.setBeanType}>Light</button>
-                    <button className='button label' data-arg1="bean_roast_medium" data-arg2="Medium" onClick={this.setBeanType}>Medium</button>
-                    <button className='button label' data-arg1="bean_roast_dark" data-arg2="Dark" onClick={this.setBeanType}>Dark</button>
+              </Columns.Column>
+              <Columns.Column>
+                <div className='dropdown-block' onClick={this.toggleBeanDropdown}>
+                  <label className='dropdown-label label'>
+                    <span>Bean</span>
+                  </label>
+                  <a className='button'>
+                    <span>{this.state.beanFilter ? this.state.beanFilter.label : "Select a bean type"}</span>
+                  </a>
+                  <div className={"dropdown-container " + (this.state.beanDropdownOpen ? "is-open" : null)}>
+                    <div className='dropdown'>
+                      <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setBeanType}>All</button>
+                      <button className='button label' data-arg1="bean_roast_light" data-arg2="Light" onClick={this.setBeanType}>Light</button>
+                      <button className='button label' data-arg1="bean_roast_medium" data-arg2="Medium" onClick={this.setBeanType}>Medium</button>
+                      <button className='button label' data-arg1="bean_roast_dark" data-arg2="Dark" onClick={this.setBeanType}>Dark</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Columns.Column>
-            <Columns.Column>
-              <div className='dropdown-block' onClick={this.toggleMethodDropdown}>
-                <label className='dropdown-label label'>
-                  <span>Method</span>
-                </label>
-                <a className='button'>
-                  <span>{this.state.methodFilter ? this.state.methodFilter.label : "Select a brew method"}</span>
-                </a>
-                <div className={"dropdown-container " + (this.state.methodDropdownOpen ? "is-open" : null)}>
-                  <div className='dropdown'>
-                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setMethodType}>All</button>
-                    <button className='button label' data-arg1="brew_method_espresso" data-arg2="Espresso" onClick={this.setMethodType}>Espresso</button>
-                    <button className='button label' data-arg1="brew_method_aeropress" data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
-                    <button className='button label' data-arg1="brew_method_pourover" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
-                    <button className='button label' data-arg1="brew_method_syphon" data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
-                    <button className='button label' data-arg1="brew_method_fullimmersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
+              </Columns.Column>
+              <Columns.Column>
+                <div className='dropdown-block' onClick={this.toggleMethodDropdown}>
+                  <label className='dropdown-label label'>
+                    <span>Method</span>
+                  </label>
+                  <a className='button'>
+                    <span>{this.state.methodFilter ? this.state.methodFilter.label : "Select a brew method"}</span>
+                  </a>
+                  <div className={"dropdown-container " + (this.state.methodDropdownOpen ? "is-open" : null)}>
+                    <div className='dropdown'>
+                      <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setMethodType}>All</button>
+                      <button className='button label' data-arg1="brew_method_espresso" data-arg2="Espresso" onClick={this.setMethodType}>Espresso</button>
+                      <button className='button label' data-arg1="brew_method_aeropress" data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
+                      <button className='button label' data-arg1="brew_method_pourover" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
+                      <button className='button label' data-arg1="brew_method_syphon" data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
+                      <button className='button label' data-arg1="brew_method_fullimmersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Columns.Column>
-            <Columns.Column>
-              <div className='dropdown-block' onClick={this.toggleRoasterDropdown}>
-                <label className='dropdown-label label'>
-                  <span>Roaster</span>
-                </label>
-                <a className='button'>
-                  <span>{this.state.roasterFilter ? this.state.roasterFilter.label : "Select a roaster"}</span>
-                </a>
-                <div className={"dropdown-container " + (this.state.roasterDropdownOpen ? "is-open" : null)}>
-                  <div className='dropdown'>
-                    <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setRoaster}>All</button>
-                    {!this.state.isLoading && this.renderRoasterList(_roasters)}
+              </Columns.Column>
+              <Columns.Column>
+                <div className='dropdown-block' onClick={this.toggleRoasterDropdown}>
+                  <label className='dropdown-label label'>
+                    <span>Roaster</span>
+                  </label>
+                  <a className='button'>
+                    <span>{this.state.roasterFilter ? this.state.roasterFilter.label : "Select a roaster"}</span>
+                  </a>
+                  <div className={"dropdown-container " + (this.state.roasterDropdownOpen ? "is-open" : null)}>
+                    <div className='dropdown'>
+                      <button className='button label' data-arg1="all" data-arg2="All" onClick={this.setRoaster}>All</button>
+                      {!this.state.isLoading && this.renderRoasterList(_roasters)}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Columns.Column>
-          </Columns>
-        </Box>
+              </Columns.Column>
+            </Columns>
+          </Box>
 
-        <Box className="resultsContainer">
-          <Columns breakpoint="desktop">
-            {!this.state.isLoading && this.renderCafeList(_cafes)}
-          </Columns>
-        </Box>
-      </Container>
+          <Box className="resultsContainer">
+            <Columns breakpoint="desktop">
+              {!this.state.isLoading && this.renderCafeList(_cafes)}
+            </Columns>
+          </Box>
+        </Container>
+      </div>
     );
   }
 }

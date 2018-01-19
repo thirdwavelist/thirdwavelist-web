@@ -1,0 +1,57 @@
+div .mapContainer {
+    position: relative;
+}
+
+.map {
+    width: 100%;
+    height: 22vw;
+}
+
+#direction-button {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.direction > span {
+    font-style: bold;
+    font-weight: 600;
+}
+
+span.title {
+    text-align: center;    
+    width: 100%; 
+    font-size: 32pt;
+    color: #000;
+    display: block;  
+    margin-top: 20px;
+}
+span.subtitle {
+    text-align: center;    
+    width: 100%; 
+    font-size: 12pt;
+    color: #033;
+    display: block;  
+    margin-top: 20px;
+}
+
+.col span.header {
+    font-size: 18pt;
+    font-weight: 600;
+    color: black;
+}
+
+div.left {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+div.right {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}

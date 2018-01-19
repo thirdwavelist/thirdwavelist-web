@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./containers/Home";
-import Manifesto from "./containers/Manifesto"
 import NotFound from "./containers/NotFound"
+import CafeDetail from "./containers/CafeDetail"
 
 export default () =>
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/manifesto" exact component={Manifesto} />
+    <Route path="/:city/:name" component={CafeDetail} />
     <Route component={NotFound} />
   </Switch>;
