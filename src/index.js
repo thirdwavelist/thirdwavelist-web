@@ -7,6 +7,8 @@ import registerServiceWorker from "./registerServiceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bulma-components/dist/react-bulma-components.min.css";
 import spectralScFont from "./fonts/SpectralSC-ExtraLight.ttf"
+import '../node_modules/font-awesome/css/font-awesome.min.css';
+
 import "./index.css";
 
 injectGlobal`
