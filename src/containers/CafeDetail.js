@@ -71,7 +71,7 @@ export default class CafeDetail extends Component {
             .setLngLat([lng, lat])
             .addTo(map);
 
-        return <Button id="direction-button" color="primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query={{this.state.cafe.name}}&query_place_id={{this.state.cafe.place_id}}"><span>Directions</span></Button>
+        return <Button id="direction-button" color="primary" target="_blank" href={"https://www.google.com/maps/search/?api=1&query="+ cafe.city +"&query_place_id="+ cafe.extra_google_placeid}><span>Directions</span></Button>
     }
 
     renderCafeDetails(cafe) {
