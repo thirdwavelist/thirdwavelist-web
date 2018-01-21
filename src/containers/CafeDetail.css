@@ -42,7 +42,7 @@ span.social {
 }
 span.social a {
     padding: 5px;
-    font-size: 2vw;
+    font-size: 2em;
     text-decoration: none !important;
     color: inherit;
 }
