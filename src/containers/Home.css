@@ -139,11 +139,15 @@ h3.header {
 .resultsCard {
   padding: 10px;
   align-self: center;
+  align-content: center;
 }
 .resultsCard div.imageCard {
   position: relative;
   display: inline-block;
-  width: 100%;  
+}
+
+.resultsCard div.imageCard img {
+  width: 100vw;
 }
 
 .imageCard span.imageTitle {
@@ -243,4 +247,5 @@ h3.header {
   .imageCard span.imageTitle { font-size: 2em; }
   .feedback p { font-size: 1.5em; }
   .feedback .inputForm { width: 90%; }
+  .sticky { /* Do nothing */   position: initial  }
 }
