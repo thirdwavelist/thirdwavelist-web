@@ -79,6 +79,10 @@ export default class CafeDetail extends Component {
             <div>
                 <span className="title">{cafe.name}</span>
                 <span className="subtitle">{cafe.city}, {cafe.address}</span>
+                <span className="social">
+                    {(cafe.social_instagram) ? <a className="fa fa-facebook-square" target="_blank" href={cafe.social_facebook}/> : null}
+                    {(cafe.social_instagram) ? <a className="fa fa-instagram" target="_blank" href={cafe.social_instagram}/> : null}
+                </span>
                 <br />
                 <Columns breakpoint="desktop">
                     <Col lg="6">
