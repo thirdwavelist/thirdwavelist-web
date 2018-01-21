@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import "./Home.css";
 import { Col, Button } from "reactstrap";
 import { Box, Container } from 'reactbulma'
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
-import "./Home.css";
 import config from "../config";
 
 /* global location */
@@ -340,7 +340,7 @@ export default class Home extends Component {
 
     return (
       <Container fluid>
-        <Box className="landing-container">
+        <Box className="landing-container sticky">
           <Columns breakpoint="desktop">
             <Columns.Column>
               <div className='dropdown-block'>

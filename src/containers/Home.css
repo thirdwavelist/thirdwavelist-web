@@ -1,7 +1,15 @@
-.landing-containr {
-  padding: 15px;
+.landing-container {
+  z-index: 10;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
+  top: 15px;
+}
 .dropdown-block {
   position: relative;
   width: 100%;
@@ -22,16 +30,14 @@
   width: 100%;
   height: 100%;
   font-size: 1em;
-  margin-right: 4px;
   color: #4c4c4c;
-  z-index: 10;
+  z-index: 20;
   border-radius: 0px;
   border: 0px;
 }
 .dropdown-block .dropdown-container button:hover {
   background-color: #f0f0f0
 } 
-
 .dropdown-block .selection {
   display: flex;
   align-items: center;
@@ -47,7 +53,6 @@
   border-radius: 0px;
   border: 0px;
 }
-
 .dropdown-block .selection span.left {
   position: absolute;
   top: 40px;
@@ -59,7 +64,6 @@
   width: 90%;
   cursor: pointer;
 }
-
 .unselectable {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -67,7 +71,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-
 .dropdown-block .selection span.right {
   position: absolute;
   top: 40px;
@@ -109,24 +112,12 @@
   padding: 10px 15px;
   border-bottom: 1px solid #ccc;
 }
-
-.location-label, .dropdown-label {
+.dropdown-label {
   position: absolute;
   top: 15px;
   left: 10px;
   color: #5a6674;
   z-index: 50;
-}
-
-.landing-container .location-box {
-  height: 80px;
-  padding: 10px 0 10px 10px;
-}
-.landing-container .location-box .search-button {
-  width: 100%;
-  height: 80px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 5px;
 }
 
 h3.header {
