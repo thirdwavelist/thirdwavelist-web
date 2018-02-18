@@ -22,11 +22,15 @@ export default class CafeDetail extends Component {
 
     async componentDidMount() {
         try {
-            var cafeId = this.props.location.state.cafeId
-            const cafeCallResponse = await this.cafe(cafeId);
+            const cafeId = this.props.location.state.cafeId
+            const cafeCallResponse = await this.cafeById(cafeId);
             this.setState({ cafe: cafeCallResponse });
         } catch (e) {
-            console.log(e);
+            var pathSegments = this.props.location.pathname.split('/');
+            const cafeName = pathSegments[1]
+            const cityName = pathSegments[2]
+            const cafeCallResponse = await this.cafeByName(cafeName, cityName);
+            this.setState({ cafe: cafeCallResponse });
         }
     
         this.setState({ isLoading: false });
@@ -35,10 +39,18 @@ export default class CafeDetail extends Component {
     toggleFullscreen() {
         console.log("fullscreen mode toggled");
     }
-    
-    cafe(cafeId) {
+
+    cafeById(cafeId) {
         return invokeApig({
             path: "/cafe/"+cafeId,
+            method: "GET",
+            headers: { "x-api-key": config.apiGateway.API_KEY }
+        });
+    }
+    
+    cafeByName(cafeName, cityName) {
+        return invokeApig({
+            path: "/"+cityName+"/"+cafeName,
             method: "GET",
             headers: { "x-api-key": config.apiGateway.API_KEY }
         });

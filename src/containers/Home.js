@@ -86,7 +86,7 @@ export default class Home extends Component {
 
   renderCafeList(cafes) {
     if (cafes.length > 0) {
-      return cafes.map((cafe) =>
+      return cafes.map((cafe) => 
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard">
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
