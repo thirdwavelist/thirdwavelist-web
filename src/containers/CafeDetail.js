@@ -14,8 +14,6 @@ export default class CafeDetail extends Component {
 
       this.state = {
         isLoading: true,
-        cord_lat: "47.493755", // TODO: Remove hardcoded value
-        cord_lng: "19.060109", // TODO: Remove hardcoded value
         cafe: null
       }
     }
@@ -25,15 +23,15 @@ export default class CafeDetail extends Component {
             const cafeId = this.props.location.state.cafeId
             const cafeCallResponse = await this.cafeById(cafeId);
             this.setState({ cafe: cafeCallResponse });
-        } catch (e) {
+            this.setState({ isLoading: false });
+        } catch (err) {
             var pathSegments = this.props.location.pathname.split('/');
             const cafeName = pathSegments[1]
             const cityName = pathSegments[2]
             const cafeCallResponse = await this.cafeByName(cafeName, cityName);
             this.setState({ cafe: cafeCallResponse });
+            this.setState({ isLoading: false });
         }
-    
-        this.setState({ isLoading: false });
     }
 
     toggleFullscreen() {
@@ -69,20 +67,21 @@ export default class CafeDetail extends Component {
     }
 
     renderMapData(cafe) {
-        var lat = this.state.cord_lat;
-        var lng = this.state.cord_lng;
-        const mapContainer = <div className="absolute top right left bottom" />;
-        const map = new mapboxgl.Map({
-            container: this.container,
-            style: 'mapbox://styles/mapbox/streets-v9',
-            center: [lng, lat],
-            zoom: 14,
-            interactive: false
-        });
-        var marker = new mapboxgl.Marker()
-            .setLngLat([lng, lat])
-            .addTo(map);
-
+        if (cafe !== null) {
+            const lat = cafe.latlong.split(', ')[0];
+            const lng = cafe.latlong.split(', ')[1];
+            const mapContainer = <div className="absolute top right left bottom" />;
+            const map = new mapboxgl.Map({
+                container: this.container,
+                style: 'mapbox://styles/mapbox/streets-v9',
+                center: [lng, lat],
+                zoom: 14,
+                interactive: false
+            });
+            var marker = new mapboxgl.Marker()
+                .setLngLat([lng, lat])
+                .addTo(map);
+        }
         return <Button id="direction-button" color="primary" target="_blank" href={"https://www.google.com/maps/search/?api=1&query="+ cafe.city +"&query_place_id="+ cafe.extra_google_placeid}><span>Directions</span></Button>
     }
 
