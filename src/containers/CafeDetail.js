@@ -121,7 +121,7 @@ export default class CafeDetail extends Component {
                         <div className="right">
                             <span className="header">Other</span>
                             <br />
-                            <p>Store front photo by <b><a link="https://instagram.com/kristoffer_tjalve" alt="Instagram">Kristoffer</a></b></p>
+                            <p>Store front photo by <b><a href="https://instagram.com/kristoffer_tjalve" alt="Instagram">Kristoffer</a></b></p>
                         </div>
                     </Col>
                 </Columns>
