@@ -46,6 +46,10 @@ span.social > a {
     text-decoration: none !important;
     color: inherit;
 }
+span a {
+    text-decoration: none !important;
+    color: inherit;
+}
 
 .col span.header {
     font-size: 18pt;
