@@ -96,7 +96,7 @@ export default class CafeDetail extends Component {
                 </span>
                 <br />
                 <Columns breakpoint="desktop">
-                    <Col lg="6">
+                    <Col lg="4">
                         <div className="left"> 
                             <span className="header">Gear</span>
                             <br />
@@ -106,13 +106,22 @@ export default class CafeDetail extends Component {
                             {this.getPourOver(cafe)}
                         </div>
                     </Col>
-                    <Col lg="6">
+                    <br />
+                    <Col lg="4">
                         <div className="right">
                             <span className="header">Bean</span>
                             <br />
                             <div><span className="floatLeft"><b>Roaster(s) </b></span> <span className="floatRight">{cafe.bean_roaster}</span></div>
                             <div><span className="floatLeft"><b>Profile </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span></div>
                             <div><span className="floatLeft"><b>Origin </b></span> <span className="floatRight">{this.getOrigin(cafe)}</span></div>
+                        </div>
+                    </Col>
+                    <br />
+                    <Col lg="4">
+                        <div className="right">
+                            <span className="header">Other</span>
+                            <br />
+                            <p>Store front photo by <b><a link="https://instagram.com/kristoffer_tjalve" alt="Instagram">Kristoffer</a></b></p>
                         </div>
                     </Col>
                 </Columns>
@@ -162,7 +171,7 @@ export default class CafeDetail extends Component {
 
     getFullImmersion(cafe) {
         if (cafe.brew_method_fullimmersion) {
-            return <div><span className="floatLeft"><b>Immersive </b></span> <span className="floatRight"> {cafe.gear_immersive}</span></div>
+            return <div><span className="floatLeft"><b>Extras </b></span> <span className="floatRight"> {cafe.gear_immersive}</span></div>
         }
         return;
     }
