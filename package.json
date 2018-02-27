@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "font-awesome": "^4.7.0",
+    "mapbox-gl": "^0.43.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-bulma-components": "^0.1.8",
