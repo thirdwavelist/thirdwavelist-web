@@ -347,7 +347,6 @@ export default class Home extends Component {
 
     return (
      <div>
-        <h1 className="title"><a className="no-style" href="/" alt="Home">Third Wave List</a></h1>
         <Container fluid>
           <Box className="landing-container sticky">
             <Columns breakpoint="desktop">
