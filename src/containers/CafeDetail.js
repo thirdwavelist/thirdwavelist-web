@@ -70,7 +70,6 @@ export default class CafeDetail extends Component {
         if (cafe !== null) {
             const lat = cafe.latlong.split(', ')[0];
             const lng = cafe.latlong.split(', ')[1];
-            const mapContainer = <div className="absolute top right left bottom" />;
             const map = new mapboxgl.Map({
                 container: this.container,
                 style: 'mapbox://styles/mapbox/streets-v9',
@@ -78,7 +77,7 @@ export default class CafeDetail extends Component {
                 zoom: 14,
                 interactive: false
             });
-            var marker = new mapboxgl.Marker()
+            new mapboxgl.Marker()
                 .setLngLat([lng, lat])
                 .addTo(map);
         }
@@ -91,8 +90,8 @@ export default class CafeDetail extends Component {
                 <span className="title">{cafe.name}</span>
                 <span className="subtitle">{cafe.city}, {cafe.address}</span>
                 <span className="social">
-                    {(cafe.social_instagram) ? <a className="fa fa-facebook-square" target="_blank" href={cafe.social_facebook}/> : null}
-                    {(cafe.social_instagram) ? <a className="fa fa-instagram" target="_blank" href={cafe.social_instagram}/> : null}
+                    {(cafe.social_instagram) ? <a className="fa fa-facebook-square" target="_blank" href={cafe.social_facebook} alt="Facebook"/> : null}
+                    {(cafe.social_instagram) ? <a className="fa fa-instagram" target="_blank" href={cafe.social_instagram} alt="Instagram"/> : null}
                 </span>
                 <br />
                 <Columns breakpoint="desktop">
