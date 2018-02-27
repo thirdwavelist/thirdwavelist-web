@@ -11,6 +11,10 @@ a.title:hover {
     color: #4A4AF1;
 }
 
+nav.navbar {
+    height: 50px;
+}
+
 ul.navbar-nav {
     margin-right: 30px;
 }
