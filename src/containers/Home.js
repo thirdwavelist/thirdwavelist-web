@@ -351,18 +351,10 @@ export default class Home extends Component {
           <Box className="landing-container sticky">
             <Columns breakpoint="desktop">
               <Columns.Column>
-                <div className='dropdown-block'>
-                  <span className='dropdown-label label'>Where</span>
-                  <div className="selection unselectable">
-                    <span className="left" onClick={this.toggleLocationDropdown}>{this.state.locationFilter ? this.state.locationFilter.label : "Select a city"}</span>
-                    <span className="right"><a className={"fa " + (this.state.locationFilter ? "fa-window-close" : ("fa-caret-" + (this.state.locationDropdownOpen ? "up" : "down")))} onClick={(this.state.locationFilter != null) ? this.clearLocationFilter : this.toggleLocationDropdown}/></span>
-                  </div>
-                  <div className={"dropdown-container " + (this.state.locationDropdownOpen ? "is-open" : "is-closed")}>
-                    <div className='dropdown'>
-                      <button className='button label' data-arg1="budapest" data-arg2="Budapest" onClick={this.setLocation}>Budapest</button>
-                    </div>
-                  </div>
-                </div>
+                <form className='location-block'>
+                  <span className='location-label label'>Where</span>
+                  <input className='location-input' name="location-selector" disabled='false' value="Budapest, Hungary" onChange={this.setLocation} />
+                </form>
               </Columns.Column>
               <Columns.Column>
                 <div className='dropdown-block'>
