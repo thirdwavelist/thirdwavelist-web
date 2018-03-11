@@ -116,28 +116,25 @@
   position: absolute;
   top: 15px;
   left: 10px;
-  color: #5a6674;
+  color: #a9a9a9;
   z-index: 50;
 }
-.location-input {
+.location-input, .dropdown-input {
   position: absolute;
+  width: 90% !important;
   top: 40px;
   left: 10px;
   padding-bottom: 5px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   background: none;
-  color: #5a6674;
-  width: 90%;
+  color: #4c4c4c;
   height: 40px;
   border: none;
-  appearance: none;
   outline: none;
-}
-.location-input::-webkit-search-cancel-button {
-  appearance: none;
-}
-.location-input:focus {
-  border-bottom: 1px solid #009688;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
 }
 
 h3.header {

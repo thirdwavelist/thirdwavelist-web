@@ -1,0 +1,11 @@
+export default {
+  apiGateway: {
+    REGION: "us-east-1",
+    URL: "https://api.thirdwavelist.com/",
+    VERSION: "v1",
+    API_KEY: "" 
+  },
+  mapboxgl: {
+    ACCESS_TOKEN: ""
+  }
+};

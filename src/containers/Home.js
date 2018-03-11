@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Col, Button } from 'reactstrap';
-import { Box, Container } from 'reactbulma'
+import { Box, Container } from 'reactbulma';
+import Select from 'react-select';
 import Columns from 'react-bulma-components/lib/components/columns';
 import { invokeApig } from "../libs/awsLib";
 import config from "../config";
@@ -23,28 +24,13 @@ export default class Home extends Component {
       roasterFilter: null,
       beanFilter: null,
       locationFilter: null,
-      beanDropdownOpen: false,
-      methodDropdownOpen: false,
-      roasterDropdownOpen: false,
-      locationDropdownOpen: false
+      cities: []
     };
 
-    this.toggleBeanDropdown = this.toggleBeanDropdown.bind(this);
-    this.toggleMethodDropdown = this.toggleMethodDropdown.bind(this);
-    this.toggleRoasterDropdown = this.toggleRoasterDropdown.bind(this);
-    this.toggleLocationDropdown = this.toggleLocationDropdown.bind(this);
     this.filterList = this.filterList.bind(this);
-    this.setBeanType = this.setBeanType.bind(this);
-    this.setMethodType = this.setMethodType.bind(this);
-    this.setLocation = this.setLocation.bind(this);
-    this.setRoaster = this.setRoaster.bind(this);
     this.clear = this.clear.bind(this);
     this.getOrigin = this.getOrigin.bind(this);
     this.getRoastProfile = this.getRoastProfile.bind(this);
-    this.clearLocationFilter = this.clearLocationFilter.bind(this);
-    this.clearMethodFilter = this.clearMethodFilter.bind(this);
-    this.clearRoasterFilter = this.clearRoasterFilter.bind(this);
-    this.clearBeanFilter = this.clearBeanFilter.bind(this);
   }
 
   async componentDidMount() {
@@ -52,7 +38,18 @@ export default class Home extends Component {
       const cafeCallResponse = await this.cafes();
       this.setState({ cafes: cafeCallResponse });
       const roasterCallResponse = await this.roasters();
-      this.setState({ roasters: roasterCallResponse});
+      this.setState({ roasters: roasterCallResponse.map(obj => {
+        var rObj = {};
+        rObj['value'] = obj.name;
+        rObj['label'] = obj.name + ' ' + obj.flag;
+        return rObj;
+      }) });
+
+      const citiesResponse = [
+        { value: 'budapest', label: 'Budapest, Hungary' },
+        { value: 'london', label: 'London, UK' }
+      ];
+      this.setState({ cities: citiesResponse });
     } catch (e) {
       console.log(e);
     }
@@ -86,16 +83,16 @@ export default class Home extends Component {
 
   renderCafeList(cafes) {
     if (cafes.length > 0) {
-      return cafes.map((cafe) => 
+      return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard">
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             {/* <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}> */}
-            <Link to = {{ 
-                pathname: '/'+cafe.city.toLowerCase()+'/'+cafe.name.replace(/\s+/g, '-').toLowerCase(),
-                state:{ cafeId: cafe.uid }
-              }}
+            <Link to={{
+              pathname: '/' + cafe.city.toLowerCase() + '/' + cafe.name.replace(/\s+/g, '-').toLowerCase(),
+              state: { cafeId: cafe.uid }
+            }}
               className="after">
               <div className="center">
                 <span className="floatLeft"><b>Roast profile: </b></span> <span className="floatRight">{this.getRoastProfile(cafe)}</span>
@@ -106,7 +103,7 @@ export default class Home extends Component {
                 {this.getPourOver(cafe)}
                 {this.getFullImmersion(cafe)}
               </div>
-            {/* </div> */}
+              {/* </div> */}
             </Link>
           </div>
         </Col>
@@ -167,33 +164,38 @@ export default class Home extends Component {
       locationDropdownOpen: false
     })
   }
-  
+
   filterList(event) {
     this.setState({ filterText: event.target.value });
   }
-  setLocation(event) {
-    this.setState({ 
-      locationFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') },
-      locationDropdownOpen: false
-    })
+  setLocation(city) {
+    if (city && city.value) {
+      this.setState({
+        locationFilter: { value: city.value, label: city.label },
+        locationDropdownOpen: false
+      })
+    }
   }
-  setBeanType(event) {
-    this.setState({ 
-      beanFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') },
-      beanDropdownOpen: false
-    })
+  setBeanType(bean) {
+    if (bean && bean.value) {
+      this.setState({
+        beanFilter: { value: bean.value, label: bean.label },
+      })
+    }
   }
-  setMethodType(event) {
-    this.setState({ 
-      methodFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') },
-      methodDropdownOpen: false
-    })
+  setMethodType(method) {
+    if (method && method.value) {
+      this.setState({
+        methodFilter: { value: method.value, label: method.label },
+      })
+    }
   }
-  setRoaster(event) {
-    this.setState({ 
-      roasterFilter: { value: event.target.getAttribute('data-arg1'), label: event.target.getAttribute('data-arg2') },
-      roasterDropdownOpen: false
-    })
+  setRoaster(roaster) {
+    if (roaster && roaster.value) {
+      this.setState({
+        roasterFilter: { value: roaster.value, label: roaster.label },
+      })
+    }
   }
 
   getRoastProfile(cafe) {
@@ -201,76 +203,19 @@ export default class Home extends Component {
     if (cafe.bean_roast_light) results.push("Light")
     if (cafe.bean_roast_medium) results.push("Medium")
     if (cafe.bean_roast_dark) results.push("Dark")
-    
+
     if (results.length <= 1) {
       return results.join();
     } else {
-      return results.slice(0, -1).join(", ") + " and " + results[results.length-1];
+      return results.slice(0, -1).join(", ") + " and " + results[results.length - 1];
     }
   }
 
   getOrigin(cafe) {
-    if (cafe.bean_origin_single && cafe.bean_origin_blend) return "Single & Blend" 
+    if (cafe.bean_origin_single && cafe.bean_origin_blend) return "Single & Blend"
     else if (cafe.bean_origin_single) return "Single"
     else if (cafe.bean_origin_blend) return "Blend"
     else return "Unknown"
-  }
-
-  toggleBeanDropdown() {
-    this.setState({
-      beanDropdownOpen: !this.state.beanDropdownOpen,
-      methodDropdownOpen: false,
-      roasterDropdownOpen: false,
-      locationDropdownOpen: false
-    });
-  }
-  toggleRoasterDropdown() {
-    this.setState({
-      roasterDropdownOpen: !this.state.roasterDropdownOpen,
-      beanDropdownOpen: false,
-      methodDropdownOpen: false,
-      locationDropdownOpen: false
-    });
-  }
-  toggleMethodDropdown() {
-    this.setState({
-      methodDropdownOpen: !this.state.methodDropdownOpen,
-      roasterDropdownOpen: false,
-      beanDropdownOpen: false,
-      locationDropdownOpen: false
-    });
-  }
-  toggleLocationDropdown() {
-    this.setState({
-      locationDropdownOpen: !this.state.locationDropdownOpen,
-      methodDropdownOpen: false,
-      roasterDropdownOpen: false,
-      beanDropdownOpen: false
-    });
-  }
-  clearRoasterFilter() {
-    this.setState({
-      roasterDropdownOpen: false,
-      roasterFilter: null
-    })
-  }
-  clearLocationFilter() {
-    this.setState({
-      locationDropdownOpen: false,
-      locationFilter: null
-    })
-  }
-  clearMethodFilter() {
-    this.setState({
-      methodDropdownOpen: false,
-      methodFilter: null
-    })
-  }
-  clearBeanFilter() {
-    this.setState({
-      beanDropdownOpen: false,
-      beanFilter: null
-    })
   }
 
   render() {
@@ -317,7 +262,7 @@ export default class Home extends Component {
         } else if (_beanFilter.value === "bean_roast_dark") {
           return cafe.bean_roast_dark;
         }
-      });    
+      });
     }
 
     if (_methodFilter !== null && _methodFilter.value.length > 0) {
@@ -346,61 +291,93 @@ export default class Home extends Component {
     }
 
     return (
-     <div>
+      <div>
         <Container fluid>
           <Box className="landing-container sticky">
             <Columns breakpoint="desktop">
               <Columns.Column>
-                <form className='location-block'>
+                <div className='location-block'>
                   <span className='location-label label'>Where</span>
-                  <input className='location-input' name="location-selector" disabled='false' value="Budapest, Hungary" onChange={this.setLocation} />
-                </form>
+                  <div className='location-input'>
+                    <Select
+                      aria-label="Select a city"
+                      options={this.state.cities}
+                      placeholder='Budapest, Hungary'
+                      name="location-selector"
+                      value={this.state.locationFilter}
+                      onChange={this.setLocation.bind(this)}
+                      backspaceRemoves={true}
+                      onSelectResetsInput={true}
+                      searchable={true}
+                      escapeClearsValue={true}
+                    />
+                  </div>
+                </div>
               </Columns.Column>
               <Columns.Column>
                 <div className='dropdown-block'>
                   <span className='dropdown-label label'>Bean</span>
-                  <div className="selection unselectable">
-                    <span className="left" onClick={this.toggleBeanDropdown}>{this.state.beanFilter ? this.state.beanFilter.label : "Select a bean type"}</span>
-                    <span className="right"><a className={"fa " + (this.state.beanFilter ? "fa-window-close" : ("fa-caret-" + (this.state.beanDropdownOpen ? "up" : "down")))} onClick={(this.state.beanFilter != null) ? this.clearBeanFilter : this.toggleBeanDropdown}/></span>
-                  </div>
-                  <div className={"dropdown-container " + (this.state.beanDropdownOpen ? "is-open" : "is-closed")}>
-                    <div className='dropdown'>
-                      <button className='button label' data-arg1="bean_roast_light" data-arg2="Light" onClick={this.setBeanType}>Light</button>
-                      <button className='button label' data-arg1="bean_roast_medium" data-arg2="Medium" onClick={this.setBeanType}>Medium</button>
-                      <button className='button label' data-arg1="bean_roast_dark" data-arg2="Dark" onClick={this.setBeanType}>Dark</button>
-                    </div>
+                  <div className='dropdown-input'>
+                    <Select
+                      aria-label="Select a bean type"
+                      options={[
+                        { value: 'bean_roast_light', label: 'Light' },
+                        { value: 'bean_roast_medium', label: 'Medium' },
+                        { value: 'bean_roast_dark', label: 'Dark' }
+                      ]}
+                      placeholder='Select a bean type'
+                      name="bean-selector"
+                      value={this.state.beanFilter}
+                      onChange={this.setBeanType.bind(this)}
+                      backspaceRemoves={true}
+                      onSelectResetsInput={true}
+                      searchable={true}
+                      escapeClearsValue={true}
+                    />
                   </div>
                 </div>
               </Columns.Column>
               <Columns.Column>
                 <div className='dropdown-block'>
                   <span className='dropdown-label label'>Method</span>
-                  <div className="selection unselectable">
-                    <span className="left" onClick={this.toggleMethodDropdown}>{this.state.methodFilter ? this.state.methodFilter.label : "Select a brew method"}</span>
-                    <span className="right"><a className={"fa " + (this.state.methodFilter ? "fa-window-close" : ("fa-caret-" + (this.state.methodDropdownOpen ? "up" : "down")))} onClick={(this.state.methodFilter != null) ? this.clearMethodFilter : this.toggleMethodDropdown}/></span>
-                  </div>
-                  <div className={"dropdown-container " + (this.state.methodDropdownOpen ? "is-open" : "is-closed")}>
-                    <div className='dropdown'>
-                      <button className='button label' data-arg1="brew_method_espresso" data-arg2="Espresso" onClick={this.setMethodType}>Espresso</button>
-                      <button className='button label' data-arg1="brew_method_aeropress" data-arg2="Aeropress" onClick={this.setMethodType}>Aeropress</button>
-                      <button className='button label' data-arg1="brew_method_pourover" data-arg2="Pour Over" onClick={this.setMethodType}>Pour Over</button>
-                      <button className='button label' data-arg1="brew_method_syphon" data-arg2="Syphon" onClick={this.setMethodType}>Syphon</button>
-                      <button className='button label' data-arg1="brew_method_fullimmersion" data-arg2="Full Immersion" onClick={this.setMethodType}>Full Immersion</button>
-                    </div>
+                  <div className='dropdown-input'>
+                    <Select
+                      aria-label="Select a bean type"
+                      options={[
+                        { value: 'brew_method_espresso', label: 'Espresso' },
+                        { value: 'brew_method_aeropress', label: 'Aeropress' },
+                        { value: 'brew_method_pourover', label: 'Pour Over' },
+                        { value: 'brew_method_syphon', label: 'Syphon' },
+                        { value: 'brew_method_fullimmersion', label: 'Full Immersion' }
+                      ]}
+                      placeholder='Select a method type'
+                      name="method-selector"
+                      value={this.state.methodFilter}
+                      onChange={this.setMethodType.bind(this)}
+                      backspaceRemoves={true}
+                      onSelectResetsInput={true}
+                      searchable={true}
+                      escapeClearsValue={true}
+                    />
                   </div>
                 </div>
               </Columns.Column>
               <Columns.Column>
                 <div className='dropdown-block'>
                   <span className='dropdown-label label'>Roaster</span>
-                  <div className="selection unselectable">
-                    <span className="left" onClick={this.toggleRoasterDropdown}>{this.state.roasterFilter ? this.state.roasterFilter.label : "Select a roaster"}</span>
-                    <span className="right"><a className={"fa " + (this.state.roasterFilter ? "fa-window-close" : ("fa-caret-" + (this.state.roasterDropdownOpen ? "up" : "down")))} onClick={(this.state.roasterFilter != null) ? this.clearRoasterFilter : this.toggleRoasterDropdown}/></span>
-                  </div>
-                  <div className={"dropdown-container " + (this.state.roasterDropdownOpen ? "is-open" : "is-closed")}>
-                    <div className='dropdown'>
-                      {!this.state.isLoading && this.renderRoasterList(_roasters)}
-                    </div>
+                  <div className='dropdown-input'>
+                    <Select
+                      aria-label="Select a bean type"
+                      options={this.state.roasters}
+                      placeholder='Select a roaster'
+                      name="roaster-selector"
+                      value={this.state.roasterFilter}
+                      onChange={this.setRoaster.bind(this)}
+                      backspaceRemoves={true}
+                      onSelectResetsInput={true}
+                      searchable={true}
+                      escapeClearsValue={true}
+                    />
                   </div>
                 </div>
               </Columns.Column>
