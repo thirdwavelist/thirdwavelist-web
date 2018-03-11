@@ -25,17 +25,14 @@ export default class CafeDetail extends Component {
             this.setState({ cafe: cafeCallResponse });
             this.setState({ isLoading: false });
         } catch (err) {
+            console.log(this.props.location.pathname.split('/'));
             var pathSegments = this.props.location.pathname.split('/');
-            const cafeName = pathSegments[1]
-            const cityName = pathSegments[2]
+            const cityName = pathSegments[1]
+            const cafeName = pathSegments[2]
             const cafeCallResponse = await this.cafeByName(cafeName, cityName);
             this.setState({ cafe: cafeCallResponse });
             this.setState({ isLoading: false });
         }
-    }
-
-    toggleFullscreen() {
-        console.log("fullscreen mode toggled");
     }
 
     cafeById(cafeId) {

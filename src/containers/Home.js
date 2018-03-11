@@ -93,7 +93,7 @@ export default class Home extends Component {
             <span className="imageTitle">{cafe.name}</span>
             {/* <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}> */}
             <Link to = {{ 
-                pathname: '/'+cafe.city.toLowerCase()+'/'+cafe.name.replace(/\s+/g, '-').toLowerCase(),
+                pathname: '/'+cafe.city.toLowerCase()+'/'+cafe.extra_url_name.toLowerCase(),
                 state:{ cafeId: cafe.uid }
               }}
               className="after">
