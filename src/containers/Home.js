@@ -87,7 +87,6 @@ export default class Home extends Component {
           <div className="imageCard">
             <img src={cafe.extra_thumbnail} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
-            {/* <div className="after" onClick={() => {location.href=this.getLinkFrom(cafe)}}> */}
             <Link to={{
               pathname: '/' + cafe.city.toLowerCase() + '/' + cafe.name.replace(/\s+/g, '-').toLowerCase(),
               state: { cafeId: cafe.uid }
