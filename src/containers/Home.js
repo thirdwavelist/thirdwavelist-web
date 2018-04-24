@@ -109,7 +109,7 @@ export default class Home extends Component {
         </Col>
       );
     } else {
-      return <Col key="error"><div className="noResultsText"><p className="header">Something must be wrong on our end, as we haven't found any cafés matching your criterias!</p><Button outline color="secondary" onClick={this.clear}>Clear</Button></div></Col>
+      return <div className="noResultsText"><p className="header">No match found for the given criterias. </p><button onClick={this.clear}>Clear selection</button></div>
     }
   }
 
@@ -302,13 +302,14 @@ export default class Home extends Component {
                     <Select
                       aria-label="Select a city"
                       options={this.state.cities}
-                      placeholder='Budapest, Hungary'
+                      placeholder='All cities'
                       name="location-selector"
                       value={this.state.locationFilter}
                       onChange={this.setLocation.bind(this)}
                       backspaceRemoves={true}
                       onSelectResetsInput={true}
                       searchable={true}
+                      clearable={true}
                       escapeClearsValue={true}
                     />
                   </div>

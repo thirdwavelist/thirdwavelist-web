@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Routes from "./Routes";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Navbar, NavbarBrand } from 'reactstrap';
 import "./App.css";
 
 class App extends Component {
@@ -21,13 +21,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar expand="md" light>
+        <Navbar>
           <NavbarBrand className="title" href="/" alt="Home">Third Wave List</NavbarBrand>
-          <Nav right navbar>
-            <NavItem>
-              <NavLink className="nav-item"  href="/submit" alt="Submit café">Submit</NavLink>
-            </NavItem>
-          </Nav>
+          <a id="submit-link" href="/submit" alt="Submit café">Submit</a>
         </Navbar>
       
         <Routes />

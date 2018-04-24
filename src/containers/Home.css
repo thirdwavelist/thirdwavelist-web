@@ -253,10 +253,12 @@ h3.header {
 /* No results found */
 .noResultsText {
   display: block;
+  margin-left: auto;
+  margin-right: auto;
   align-content: center;
   padding: 100px 0;
   text-align: center; 
-  font-size:1.5em;
+  font-size: 1.5em;
 }
 
 @media (max-width: 992px) {

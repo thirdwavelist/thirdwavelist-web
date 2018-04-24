@@ -19,12 +19,10 @@ ul.navbar-nav {
     margin-right: 30px;
 }
 
-@media screen and (min-width: 1024px) {
-    nav.navbar { align-items: center; }
-}
-
-li.nav-item {
-    text-align: center;
+a#submit-link {
+    position: absolute;
+    margin: 30px 30px 0 0;
+    right: 0;
 }
 
 div.footer {
