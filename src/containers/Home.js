@@ -46,8 +46,7 @@ export default class Home extends Component {
       }) });
 
       const citiesResponse = [
-        { value: 'budapest', label: 'Budapest, Hungary' },
-        { value: 'london', label: 'London, UK' }
+        { value: 'budapest', label: 'Budapest, Hungary' }
       ];
       this.setState({ cities: citiesResponse });
     } catch (e) {
