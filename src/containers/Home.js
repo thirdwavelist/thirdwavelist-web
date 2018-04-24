@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { Col, Button } from 'reactstrap';
+import { Col } from 'reactstrap';
 import { Box, Container } from 'reactbulma';
 import Select from 'react-select';
 import Columns from 'react-bulma-components/lib/components/columns';
@@ -157,11 +157,7 @@ export default class Home extends Component {
       beanFilter: null,
       methodFilter: null,
       roasterFilter: null,
-      locationFilter: null,
-      beanDropdownOpen: false,
-      methodDropdownOpen: false,
-      roasterDropdownOpen: false,
-      locationDropdownOpen: false
+      locationFilter: null
     })
   }
 
@@ -169,11 +165,13 @@ export default class Home extends Component {
     this.setState({ filterText: event.target.value });
   }
   setLocation(city) {
+    console.log(city);
     if (city && city.value) {
       this.setState({
         locationFilter: { value: city.value, label: city.label },
-        locationDropdownOpen: false
       })
+    } else if (city === null){
+      this.setState({ locationFilter: null })
     }
   }
   setBeanType(bean) {
@@ -181,6 +179,8 @@ export default class Home extends Component {
       this.setState({
         beanFilter: { value: bean.value, label: bean.label },
       })
+    } else if (bean === null){
+      this.setState({ beanFilter: null })
     }
   }
   setMethodType(method) {
@@ -188,6 +188,8 @@ export default class Home extends Component {
       this.setState({
         methodFilter: { value: method.value, label: method.label },
       })
+    } else if (method === null){
+      this.setState({ methodFilter: null })
     }
   }
   setRoaster(roaster) {
@@ -195,6 +197,8 @@ export default class Home extends Component {
       this.setState({
         roasterFilter: { value: roaster.value, label: roaster.label },
       })
+    } else if (roaster === null){
+      this.setState({ roasterFilter: null })
     }
   }
 
@@ -304,13 +308,9 @@ export default class Home extends Component {
                       options={this.state.cities}
                       placeholder='All cities'
                       name="location-selector"
+                      isClearable={true}
                       value={this.state.locationFilter}
                       onChange={this.setLocation.bind(this)}
-                      backspaceRemoves={true}
-                      onSelectResetsInput={true}
-                      searchable={true}
-                      clearable={true}
-                      escapeClearsValue={true}
                     />
                   </div>
                 </div>
@@ -328,12 +328,9 @@ export default class Home extends Component {
                       ]}
                       placeholder='Select a bean type'
                       name="bean-selector"
+                      isClearable={true}
                       value={this.state.beanFilter}
                       onChange={this.setBeanType.bind(this)}
-                      backspaceRemoves={true}
-                      onSelectResetsInput={true}
-                      searchable={true}
-                      escapeClearsValue={true}
                     />
                   </div>
                 </div>
@@ -353,12 +350,9 @@ export default class Home extends Component {
                       ]}
                       placeholder='Select a method type'
                       name="method-selector"
+                      isClearable={true}
                       value={this.state.methodFilter}
                       onChange={this.setMethodType.bind(this)}
-                      backspaceRemoves={true}
-                      onSelectResetsInput={true}
-                      searchable={true}
-                      escapeClearsValue={true}
                     />
                   </div>
                 </div>
@@ -372,12 +366,10 @@ export default class Home extends Component {
                       options={this.state.roasters}
                       placeholder='Select a roaster'
                       name="roaster-selector"
+                      isSearchable={true}
+                      isClearable={true}
                       value={this.state.roasterFilter}
                       onChange={this.setRoaster.bind(this)}
-                      backspaceRemoves={true}
-                      onSelectResetsInput={true}
-                      searchable={true}
-                      escapeClearsValue={true}
                     />
                   </div>
                 </div>
