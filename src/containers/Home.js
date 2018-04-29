@@ -37,6 +37,15 @@ export default class Home extends Component {
     try {
       const cafeCallResponse = await this.cafes();
       this.setState({ cafes: cafeCallResponse });
+
+      const citiesCallResponse = await this.cities();
+      this.setState({ cities: citiesCallResponse.map(obj => {
+        var rObj = {};
+        rObj['value'] = obj.id;
+        rObj['label'] = obj.label + ' ' + obj.country_flag;
+        return rObj;
+      }) });
+
       const roasterCallResponse = await this.roasters();
       this.setState({ roasters: roasterCallResponse.map(obj => {
         var rObj = {};
@@ -44,11 +53,6 @@ export default class Home extends Component {
         rObj['label'] = obj.name + ' ' + obj.flag;
         return rObj;
       }) });
-
-      const citiesResponse = [
-        { value: 'budapest', label: 'Budapest, Hungary' }
-      ];
-      this.setState({ cities: citiesResponse });
     } catch (e) {
       console.log(e);
     }
@@ -59,6 +63,14 @@ export default class Home extends Component {
   cafes() {
     return invokeApig({
       path: "/cafe",
+      method: "GET",
+      headers: { "x-api-key": config.apiGateway.API_KEY }
+    });
+  }
+
+  cities() {
+    return invokeApig({
+      path: "/cities",
       method: "GET",
       headers: { "x-api-key": config.apiGateway.API_KEY }
     });
@@ -85,7 +97,7 @@ export default class Home extends Component {
       return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard">
-            <img src={cafe.extra_thumbnail} alt="Thumbnail" />
+            <img src={(cafe.extra_thumbnail).trim()!='' ? cafe.extra_thumbnail : "https://assets.thirdwavelist.com/thumb/missing-"+(Math.floor(Math.random() * 3) + 1)+".jpg"} alt="Thumbnail" />
             <span className="imageTitle">{cafe.name}</span>
             <Link to={{
               pathname: '/' + cafe.city.toLowerCase() + '/' + cafe.name.replace(/\s+/g, '-').toLowerCase(),
@@ -163,7 +175,6 @@ export default class Home extends Component {
     this.setState({ filterText: event.target.value });
   }
   setLocation(city) {
-    console.log(city);
     if (city && city.value) {
       this.setState({
         locationFilter: { value: city.value, label: city.label },
@@ -306,6 +317,7 @@ export default class Home extends Component {
                       options={this.state.cities}
                       placeholder='All cities'
                       name="location-selector"
+                      isSearchable={true}
                       isClearable={true}
                       value={this.state.locationFilter}
                       onChange={this.setLocation.bind(this)}
