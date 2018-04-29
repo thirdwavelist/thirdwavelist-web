@@ -98,6 +98,7 @@ export default class Home extends Component {
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard">
             <img src={(cafe.extra_thumbnail).trim()!='' ? cafe.extra_thumbnail : "https://assets.thirdwavelist.com/thumb/missing-"+(Math.floor(Math.random() * 3) + 1)+".jpg"} alt="Thumbnail" />
+            <span className="countryFlag">{/* TODO */}</span>
             <span className="imageTitle">{cafe.name}</span>
             <Link to={{
               pathname: '/' + cafe.city.toLowerCase() + '/' + cafe.name.replace(/\s+/g, '-').toLowerCase(),
@@ -113,7 +114,6 @@ export default class Home extends Component {
                 {this.getPourOver(cafe)}
                 {this.getFullImmersion(cafe)}
               </div>
-              {/* </div> */}
             </Link>
           </div>
         </Col>

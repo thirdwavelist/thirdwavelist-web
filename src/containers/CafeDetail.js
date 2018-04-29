@@ -117,7 +117,7 @@ export default class CafeDetail extends Component {
                         <div className="right">
                             <span className="header">Other</span>
                             <br />
-                            <div><span>Store front photo by <b><a href="https://instagram.com/kristoffer_tjalve" alt="Instagram">Kristoffer</a></b></span></div>
+                            <div>{this.getStorePhotoContributor(cafe)}</div>
                         </div>
                     </Col>
                 </Columns>
@@ -168,6 +168,13 @@ export default class CafeDetail extends Component {
     getFullImmersion(cafe) {
         if (cafe.brew_method_fullimmersion) {
             return <div><span className="floatLeft"><b>Extras </b></span> <span className="floatRight"> {cafe.gear_immersive}</span></div>
+        }
+        return;
+    }
+
+    getStorePhotoContributor(cafe) {
+        if (cafe.photographer_name !== " ") {
+            return <span>Store front photo by <b><a href="{cafe.photographer_link}" alt="Instagram">{cafe.photographer_name}</a></b></span>
         }
         return;
     }
