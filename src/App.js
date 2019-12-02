@@ -29,7 +29,7 @@ class App extends Component {
         <Routes />
 
         <div className="footer">
-          <span>Made with <span role="img" aria-label="love">❤️</span> by <a className="no-style" href="https://www.twitter.com/tjalve">@tjalve</a> and <a className="no-style" href="https://www.twitter.com/anthonymonori">@anthonymonori</a>.</span>
+          <span>Made with <span role="img" aria-label="love">❤️</span> by <a className="no-style" href="https://www.twitter.com/tjalve">@tjalve</a> and <a className="no-style" href="https://www.twitter.com/antalindisguise">@antalindisguise</a>.</span>
           <br />
           <span>Copyright (c). Third Wave List, 2017 - {new Date().getFullYear()}. All rights reserved.</span>
         </div>

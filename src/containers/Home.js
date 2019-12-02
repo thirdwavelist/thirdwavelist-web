@@ -97,7 +97,7 @@ export default class Home extends Component {
       return cafes.map((cafe) =>
         <Col lg="3" key={cafe.uid} className="resultsCard">
           <div className="imageCard">
-            <img src={(cafe.extra_thumbnail).trim()!='' ? cafe.extra_thumbnail : "https://assets.thirdwavelist.com/thumb/missing-"+(Math.floor(Math.random() * 3) + 1)+".jpg"} alt="Thumbnail" />
+            <img src={(cafe.extra_thumbnail).trim()!=='' ? cafe.extra_thumbnail : "https://assets.thirdwavelist.com/thumb/missing-"+(Math.floor(Math.random() * 3) + 1)+".jpg"} alt="Thumbnail" />
             <span className="countryFlag">{/* TODO */}</span>
             <span className="imageTitle">{cafe.name}</span>
             <Link to={{
@@ -233,7 +233,6 @@ export default class Home extends Component {
 
   render() {
     let _cafes = this.state.cafes;
-    let _roasters = this.state.roasters;
 
     let _beanFilter = this.state.beanFilter;
     let _methodFilter = this.state.methodFilter;
