@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.thirdwavelist.coficiando",
+    "sha256_cert_fingerprints":
+    ["28:34:90:99:24:FB:4B:59:E7:9B:38:7A:F6:F4:D7:55:0D:DB:48:2F:48:8A:88:C6:7A:20:E2:7A:A1:DC:64:B6"]
+  }
+}]
