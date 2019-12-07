@@ -36,4 +36,4 @@ Copyright (c) 2017 - 2019, Antal János Monori & Kristoffer Tjalve
 All rights reserved.
 ```
 
-See [LICENSE](./LICENSE.md) for more.
+See [LICENSE](./LICENSE) for more.
