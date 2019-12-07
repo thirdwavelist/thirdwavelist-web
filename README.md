@@ -4,7 +4,7 @@ This is the official source code of the web front-end for ThirdWaveList. You can
 
 ## Contribute
 
-Feel free to take a look at the [open Issues](https://github.com/thirdwavelist/thirdwavelist-web/issues), especially the ones with `good+first+issue` [label](https://github.com/thirdwavelist/thirdwavelist-web/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and get going. You will need to get one of the owners to review and accept the PRs before it ends up being released. All help is welcome 🙏!
+Feel free to take a look at the [open Issues](https://github.com/thirdwavelist/thirdwavelist-web/issues), especially the ones with [`good+first+issue`](https://github.com/thirdwavelist/thirdwavelist-web/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) or [`help-wanted`](https://github.com/thirdwavelist/thirdwavelist-web/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) label and get going. You will need to get one of the owners to review and accept the PRs before it ends up being released. All help is welcome 🙏!
 
 ## Build
 
