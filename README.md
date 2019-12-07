@@ -1,4 +1,4 @@
-# thirdwavelist-web ![](https://github.com/thirdwavelist/thirdwavelist-web/workflows/deploy/badge.svg)
+# thirdwavelist-web ![Deploy latest version](https://github.com/thirdwavelist/thirdwavelist-web/workflows/Deploy%20latest%20version/badge.svg) ![Package.json version](https://img.shields.io/github/package-json/v/thirdwavelist/thirdwavelist-web?style=flat) ![License](https://img.shields.io/github/license/thirdwavelist/thirdwavelist-web?style=flat)
 
 This is the official source code of the web front-end for ThirdWaveList. You can check out the page by clicking this link 👉 [www.thirdwavelist.com](https://www.thirdwavelist.com)
 
