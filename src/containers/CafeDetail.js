@@ -86,8 +86,20 @@ export default class CafeDetail extends Component {
                 <span className="title">{cafe.name}</span>
                 <span className="subtitle">{cafe.city}, {cafe.address}</span>
                 <span className="social">
-                    {(cafe.social_instagram) ? <a className="fa fa-facebook-square" target="_blank" href={cafe.social_facebook} alt="Facebook"/> : null}
-                    {(cafe.social_instagram) ? <a className="fa fa-instagram" target="_blank" href={cafe.social_instagram} alt="Instagram"/> : null}
+                    {(cafe.social_instagram) ? 
+                    <a // eslint-disable-line jsx-a11y/anchor-has-content
+                        className="fa fa-facebook-square" 
+                        target="_blank" 
+                        href={cafe.social_facebook} 
+                        alt="Facebook"
+                    /> : null}
+                    {(cafe.social_instagram) ? 
+                    <a // eslint-disable-line jsx-a11y/anchor-has-content
+                        className="fa fa-instagram" 
+                        target="_blank" 
+                        href={cafe.social_instagram} 
+                        alt="Instagram"
+                    /> : null}
                 </span>
                 <br />
                 <Columns breakpoint="desktop">
