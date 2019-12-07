@@ -1,0 +1,28 @@
+name: Build and test
+
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['8.x', '10.x', '12.x', '13.x']
+    steps:
+    - name: Checkout latest master
+      uses: actions/checkout@master
+    - name: Touch src/config.js
+      run: |
+        cp ./src/config.js.bak ./src/config.js &&
+        sed -i 's/API-KEY-HERE/${{ secrets.API_KEY }}/' ./src/config.js &&
+        sed -i 's/MAPBOX-API-KEY-HERE/${{ secrets.MAPBOX_API_KEY }}/' ./src/config.js
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build and test
+      run: |
+        npm ci
+        npm run build --if-present
+        npm test
+      env:
+        CI: true
