@@ -29,7 +29,7 @@ class App extends Component {
         <Routes />
 
         <div className="footer">
-          <span>Made with <span role="img" aria-label="love">❤️</span> by <a className="no-style" target="_blank" href="https://www.twitter.com/tjalve">@tjalve</a> and <a className="no-style" target="_blank" href="https://www.twitter.com/hifromantal">@hifromantal</a>.</span>
+          <span>Made with <span role="img" aria-label="love">❤️</span> by <a className="no-style" target="_blank" rel="noopener noreferrer" href="https://www.twitter.com/tjalve">@tjalve</a> and <a className="no-style" target="_blank" rel="noopener noreferrer" href="https://www.twitter.com/hifromantal">@hifromantal</a>.</span>
           <br />
           <span>Copyright (c). Antal János Monori & Kristoffer Tjalve, 2017 - {new Date().getFullYear()}. All rights reserved.</span>
         </div>
